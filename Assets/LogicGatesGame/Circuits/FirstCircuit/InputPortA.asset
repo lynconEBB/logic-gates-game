@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a262a0e2be024af5a4be939e113ff1c6, type: 3}
-  m_Name: InputPort2
+  m_Name: InputPortA
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.Port
   direction: 0
   initialValue: 1

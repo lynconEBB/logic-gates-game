@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
@@ -8,36 +10,74 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField] 
         private Port port;
+        [SerializeField]
+        private WireInteractable wirePrefab;
+        [SerializeField]
+        private ConnectionSocket connectionSocket;
+        private WireInteractable _lastWire;
+        
         private CircuitController _circuitController;
 
         protected override void Awake()
         {
             base.Awake();
+            
             _circuitController = GetComponentInParent<CircuitController>();
+            _circuitController.AddPort(port);
         }
-
-        protected override void OnHoverEntered(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntered(args);
-            Debug.Log("OnHoverEntered " + gameObject.name);
-        }
-
-        protected override void OnHoverExited(HoverExitEventArgs args)
-        {
-            base.OnHoverExited(args);
-            Debug.Log("OnHoverExited " + gameObject.name);
-        }
-
+        
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            Debug.Log("OnSelectEntered " + gameObject.name);
+            
+            // interactionManager.SelectCancel(args.interactorObject, this);
+            
+            _lastWire = Instantiate(wirePrefab);
+            _lastWire.SelectStart(connectionSocket);
+            _lastWire.SelectEnd(args.interactorObject);
         }
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-            Debug.Log("OnSelectExited " + gameObject.name); 
+            if (_lastWire != null)
+            {
+                _lastWire.DeselectEnd(args.interactorObject);
+                _lastWire = null;
+            }
+        }
+
+        bool IsNearTarget(IXRInteractor interactor)
+        {
+            if (interactor is XRDirectInteractor || interactor is XRSocketInteractor || interactor is XRProximityInteractor) return true;
+
+            if (interactor is NearFarInteractor nearFar)
+            {
+                var nearCaster = nearFar.nearInteractionCaster;
+                if (nearCaster == null || !nearCaster.isInitialized)
+                    return false;
+
+                List<Collider> nearColliders = new List<Collider>();
+                bool got = nearCaster.TryGetColliderTargets(interactionManager, nearColliders);
+                if (!got)
+                    return false;
+
+                foreach (var col in nearColliders)
+                {
+                    if (col == null) continue;
+
+                    var candidate = col.GetComponentInParent<XRBaseInteractable>();
+                    if (candidate == this)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        
+        public override bool IsHoverableBy(IXRHoverInteractor interactor)
+        {
+            return IsNearTarget(interactor);
         }
     }
 }
