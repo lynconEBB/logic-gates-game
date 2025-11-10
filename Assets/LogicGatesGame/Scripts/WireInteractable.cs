@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -66,16 +67,6 @@ namespace LogicGatesGame.Scripts
             interactionManager.SelectEnter(interactor, startInteractable);
         }
 
-        public void DeselectStart(IXRSelectInteractor interactor)
-        {
-            interactionManager.SelectCancel(interactor, startInteractable);
-        }
-        
-        public void DeselectEnd(IXRSelectInteractor interactor)
-        {
-            interactionManager.SelectCancel(interactor, endInteractable);
-        }
-
         public void SelectEnd(IXRSelectInteractor interactor)
         {
             interactionManager.SelectEnter(interactor, endInteractable);
@@ -90,6 +81,7 @@ namespace LogicGatesGame.Scripts
                 if (startInteractable.isSelected)
                 {
                     Vector3 target = splineContainer.transform.InverseTransformPoint(startInteractable.firstInteractorSelecting.GetAttachTransform(startInteractable).position);
+                    _startKnot.Rotation = quaternion.identity;
                     _startKnot.Position = target;
                     _spline[0] = _startKnot;
                 }
@@ -97,6 +89,7 @@ namespace LogicGatesGame.Scripts
                 if (endInteractable.isSelected)
                 {
                     Vector3 target = splineContainer.transform.InverseTransformPoint(endInteractable.firstInteractorSelecting.GetAttachTransform(endInteractable).position);
+                    _startKnot.Rotation = quaternion.identity;
                     _endKnot.Position = target;
                     _spline[1] = _endKnot;
                 }

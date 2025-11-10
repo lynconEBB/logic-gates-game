@@ -30,21 +30,11 @@ namespace LogicGatesGame.Scripts
         {
             base.OnSelectEntered(args);
             
-            // interactionManager.SelectCancel(args.interactorObject, this);
+            interactionManager.SelectCancel(args.interactorObject, this);
             
             _lastWire = Instantiate(wirePrefab);
             _lastWire.SelectStart(connectionSocket);
             _lastWire.SelectEnd(args.interactorObject);
-        }
-
-        protected override void OnSelectExited(SelectExitEventArgs args)
-        {
-            base.OnSelectExited(args);
-            if (_lastWire != null)
-            {
-                _lastWire.DeselectEnd(args.interactorObject);
-                _lastWire = null;
-            }
         }
 
         bool IsNearTarget(IXRInteractor interactor)
