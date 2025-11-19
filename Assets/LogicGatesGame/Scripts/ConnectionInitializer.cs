@@ -6,25 +6,15 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
-    public class PortInteractable : XRSimpleInteractable
+    public class ConnectionInitializer : XRSimpleInteractable
     {
-        [SerializeField] 
-        private Port port;
         [SerializeField]
         private WireInteractable wirePrefab;
         [SerializeField]
         private ConnectionSocket connectionSocket;
+        
         private WireInteractable _lastWire;
         
-        private CircuitController _circuitController;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            _circuitController = GetComponentInParent<CircuitController>();
-            _circuitController.AddPort(port);
-        }
         
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {

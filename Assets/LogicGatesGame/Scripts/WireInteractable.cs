@@ -11,11 +11,14 @@ namespace LogicGatesGame.Scripts
     public class WireInteractable : XRSimpleInteractable
     {
         [SerializeField] 
-        private XRGrabInteractable startInteractable;
+        private WireConnection startInteractable;
         [SerializeField] 
-        private XRGrabInteractable endInteractable;
+        private WireConnection endInteractable;
         [SerializeField] 
         private SplineContainer splineContainer;
+
+        private int? _nodeIdA;
+        private int? _nodeIdB;
 
         private Spline _spline;
         private BezierKnot _startKnot;
@@ -33,6 +36,8 @@ namespace LogicGatesGame.Scripts
             base.OnEnable();
             startInteractable.selectEntered.AddListener(OnStartSelected);    
             endInteractable.selectEntered.AddListener(OnEndSelected);
+            startInteractable.OnDestroyed += AutoDestroy;
+            endInteractable.OnDestroyed += AutoDestroy;
         }
 
         private void OnEndSelected(SelectEnterEventArgs args)
@@ -60,6 +65,8 @@ namespace LogicGatesGame.Scripts
             base.OnDisable();
             startInteractable.selectEntered.RemoveListener(OnStartSelected);    
             endInteractable.selectEntered.RemoveListener(OnEndSelected);
+            startInteractable.OnDestroyed -= AutoDestroy;
+            endInteractable.OnDestroyed -= AutoDestroy;
         }
 
         public void SelectStart(IXRSelectInteractor interactor)
@@ -94,6 +101,11 @@ namespace LogicGatesGame.Scripts
                     _spline[1] = _endKnot;
                 }
             }
+        }
+
+        public void AutoDestroy()
+        {
+           Destroy(gameObject); 
         }
     }
 }
