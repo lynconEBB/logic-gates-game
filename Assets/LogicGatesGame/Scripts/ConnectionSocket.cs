@@ -15,7 +15,11 @@ namespace LogicGatesGame.Scripts
             base.Awake();
             _nodeComponent = GetComponentInParent<NodeComponent>();
         }
-        
+
+        public Node GetOwningNode()
+        {
+            return _nodeComponent.Node;
+        }
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {

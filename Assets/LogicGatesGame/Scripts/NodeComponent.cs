@@ -7,6 +7,8 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField]
         private NodeType type;
+        public Node Node => _node;
+        
         private CircuitController _circuitController;
         private int _nodeId;
         private Node _node;

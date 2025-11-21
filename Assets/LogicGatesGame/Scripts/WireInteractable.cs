@@ -1,6 +1,7 @@
 ﻿using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Splines;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -10,10 +11,10 @@ namespace LogicGatesGame.Scripts
 {
     public class WireInteractable : XRSimpleInteractable
     {
-        [SerializeField] 
-        private WireConnection startInteractable;
-        [SerializeField] 
-        private WireConnection endInteractable;
+        [FormerlySerializedAs("startInteractable")] [SerializeField] 
+        private WireConnection interactableA;
+        [FormerlySerializedAs("endInteractable")] [SerializeField] 
+        private WireConnection interactableB;
         [SerializeField] 
         private SplineContainer splineContainer;
 
@@ -34,19 +35,24 @@ namespace LogicGatesGame.Scripts
         protected override void OnEnable()
         {
             base.OnEnable();
-            startInteractable.selectEntered.AddListener(OnStartSelected);    
-            endInteractable.selectEntered.AddListener(OnEndSelected);
-            startInteractable.OnDestroyed += AutoDestroy;
-            endInteractable.OnDestroyed += AutoDestroy;
+            interactableA.selectEntered.AddListener(OnStartSelected);    
+            interactableB.selectEntered.AddListener(OnEndSelected);
+            interactableA.OnDestroyed += AutoDestroy;
+            interactableB.OnDestroyed += AutoDestroy;
         }
 
         private void OnEndSelected(SelectEnterEventArgs args)
         {
-            if (args.interactorObject is ConnectionSocket)
+            if (args.interactorObject is ConnectionSocket socket)
             {
-                Vector3 target = splineContainer.transform.InverseTransformPoint(args.interactorObject.GetAttachTransform(endInteractable).position);
+                Vector3 target = splineContainer.transform.InverseTransformPoint(args.interactorObject.GetAttachTransform(interactableB).position);
                 _endKnot.Position = target;
                 _spline[1] = _endKnot;
+
+                if (!_nodeIdA.HasValue)
+                {
+                    return;
+                }
             }
         }
 
@@ -54,29 +60,30 @@ namespace LogicGatesGame.Scripts
         {
             if (args.interactorObject is ConnectionSocket)
             {
-                Vector3 target = splineContainer.transform.InverseTransformPoint(args.interactorObject.GetAttachTransform(startInteractable).position);
+                Vector3 target = splineContainer.transform.InverseTransformPoint(args.interactorObject.GetAttachTransform(interactableA).position);
                 _startKnot.Position = target;
                 _spline[0] = _startKnot;
+                
             }
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            startInteractable.selectEntered.RemoveListener(OnStartSelected);    
-            endInteractable.selectEntered.RemoveListener(OnEndSelected);
-            startInteractable.OnDestroyed -= AutoDestroy;
-            endInteractable.OnDestroyed -= AutoDestroy;
+            interactableA.selectEntered.RemoveListener(OnStartSelected);    
+            interactableB.selectEntered.RemoveListener(OnEndSelected);
+            interactableA.OnDestroyed -= AutoDestroy;
+            interactableB.OnDestroyed -= AutoDestroy;
         }
 
         public void SelectStart(IXRSelectInteractor interactor)
         {
-            interactionManager.SelectEnter(interactor, startInteractable);
+            interactionManager.SelectEnter(interactor, interactableA);
         }
 
         public void SelectEnd(IXRSelectInteractor interactor)
         {
-            interactionManager.SelectEnter(interactor, endInteractable);
+            interactionManager.SelectEnter(interactor, interactableB);
         }
 
         public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
@@ -85,17 +92,17 @@ namespace LogicGatesGame.Scripts
             
             if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
-                if (startInteractable.isSelected)
+                if (interactableA.isSelected)
                 {
-                    Vector3 target = splineContainer.transform.InverseTransformPoint(startInteractable.firstInteractorSelecting.GetAttachTransform(startInteractable).position);
+                    Vector3 target = splineContainer.transform.InverseTransformPoint(interactableA.firstInteractorSelecting.GetAttachTransform(interactableA).position);
                     _startKnot.Rotation = quaternion.identity;
                     _startKnot.Position = target;
                     _spline[0] = _startKnot;
                 }
 
-                if (endInteractable.isSelected)
+                if (interactableB.isSelected)
                 {
-                    Vector3 target = splineContainer.transform.InverseTransformPoint(endInteractable.firstInteractorSelecting.GetAttachTransform(endInteractable).position);
+                    Vector3 target = splineContainer.transform.InverseTransformPoint(interactableB.firstInteractorSelecting.GetAttachTransform(interactableB).position);
                     _startKnot.Rotation = quaternion.identity;
                     _endKnot.Position = target;
                     _spline[1] = _endKnot;

@@ -9,6 +9,7 @@ namespace LogicGatesGame.Scripts
 
 public class WireConnection : XRGrabInteractable
     {
+        private static readonly int FRAMES_TO_DESTROY = 5;
         private Coroutine _lateDestroyRoutine;
         public event Action OnDestroyed;
         
@@ -16,15 +17,13 @@ public class WireConnection : XRGrabInteractable
         {
             base.OnSelectEntered(args);
 
-            if (_lateDestroyRoutine != null)
+            if (args.interactorObject is ConnectionSocket socket)
             {
-                StopCoroutine(_lateDestroyRoutine);
-                _lateDestroyRoutine = null;
-            }
-
-            if (args.interactorObject is ConnectionSocket)
-            {
-                 
+                if (_lateDestroyRoutine != null)
+                {
+                    StopCoroutine(_lateDestroyRoutine);
+                    _lateDestroyRoutine = null;
+                }
             }
         }
 
@@ -32,11 +31,21 @@ public class WireConnection : XRGrabInteractable
         {
             base.OnSelectExited(args);
 
-            Debug.Log("Wire connection exited");
-            foreach (var hoverInteractor in interactorsHovering)
+            if (args.interactorObject is not ConnectionSocket)
             {
-                Debug.Log((hoverInteractor as MonoBehaviour).name);
+                _lateDestroyRoutine = StartCoroutine(LateDestroyRoutine());
             }
+            Debug.Log("Wire connection exited");
+        }
+
+        private IEnumerator LateDestroyRoutine()
+        {
+            for (int i = 0; i < FRAMES_TO_DESTROY; i++)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            Destroy(gameObject);
+            // The connection is destroyed here
         }
 
         protected override void OnDestroy()
