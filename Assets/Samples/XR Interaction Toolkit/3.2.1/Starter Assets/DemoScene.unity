@@ -3212,6 +3212,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4111557414915583047, guid: f5ee409d69254d64da7a3b74d31a5a40, type: 3}
+      propertyPath: m_ReplaceIdleStateValueWithInitialValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5032153987230353887, guid: f5ee409d69254d64da7a3b74d31a5a40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.067
@@ -3227,6 +3231,14 @@ PrefabInstance:
     - target: {fileID: 5151981248583452152, guid: f5ee409d69254d64da7a3b74d31a5a40, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4.439
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910175351001696672, guid: f5ee409d69254d64da7a3b74d31a5a40, type: 3}
+      propertyPath: m_AffordanceThemeDatum.m_UseConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910175351001696672, guid: f5ee409d69254d64da7a3b74d31a5a40, type: 3}
+      propertyPath: m_ReplaceIdleStateValueWithInitialValue
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
