@@ -4,12 +4,8 @@ namespace LogicGatesGame.Scripts
 {
     public enum NodeType
     {
-        SOURCE,
-        SINK,
-        SIMPLE,
-        AND,
-        OR,
-        NOT
+        Output,
+        Input,
     }
     
     public abstract class Node
@@ -42,12 +38,12 @@ namespace LogicGatesGame.Scripts
             return true;
         }
 
-        public virtual bool CanAddAsOutput(Node node)
+        public virtual bool CanAddToOutputSlot(Node node)
         {
             return maxOutputs == null || outputs.Count < maxOutputs;
         }
         
-        public virtual bool CanAddAsInput(Node node)
+        public virtual bool CanAddToInputSlot(Node node)
         {
             return maxInputs == null || inputs.Count < maxInputs;
         }

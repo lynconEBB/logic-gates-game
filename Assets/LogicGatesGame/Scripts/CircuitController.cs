@@ -26,32 +26,50 @@ namespace LogicGatesGame.Scripts
             {
                 input.Outputs.Remove(node);
             }
+
             foreach (Node output in node.Outputs)
             {
                 output.Inputs.Remove(node);
             }
+
             nodes.Remove(nodeId);
         }
 
         public bool ConnectNodes(int inputNodeId, int outputNodeId)
         {
-            if (!nodes.ContainsKey(inputNodeId) || !nodes.ContainsKey(outputNodeId) || 
-                !nodes[inputNodeId].CanAddAsOutput(nodes[outputNodeId]) || !nodes[outputNodeId].CanAddAsInput(nodes[inputNodeId]))
+            if (!CanConnectNodes(inputNodeId, outputNodeId))
                 return false;
-            
+
             nodes[inputNodeId].TryAddOutput(nodes[outputNodeId]);
             nodes[outputNodeId].TryAddInput(nodes[inputNodeId]);
             return true;
         }
-    }
+
+        public bool CanConnectNodes(int inputNodeId, int outputNodeId)
+        {
+            return nodes.ContainsKey(inputNodeId) && nodes.ContainsKey(outputNodeId) &&
+                   nodes[inputNodeId].CanAddToInputSlot(nodes[outputNodeId]) &&
+                   nodes[outputNodeId].CanAddToOutputSlot(nodes[inputNodeId]);
+        }
+}
 
     public class CircuitController : MonoBehaviour
     {
         private Circuit _circuit = new();
-        
+
         public int AddNode(Node newNode)
         {
-            return _circuit.AddNode(newNode);         
+            return _circuit.AddNode(newNode);
+        }
+
+        public bool CanConnectNodes(int inputNodeId, int outputNodeId)
+        {
+            return _circuit.CanConnectNodes(inputNodeId, outputNodeId); 
+        }
+
+        public bool ConnectNodes(int inputNodeId, int outputNodeId)
+        {
+            return _circuit.ConnectNodes(inputNodeId, outputNodeId);    
         }
 
         public void AddGate()

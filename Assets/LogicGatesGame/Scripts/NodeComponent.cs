@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LogicGatesGame.Scripts
 {
@@ -7,46 +6,50 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField]
         private NodeType type;
+        public NodeType Type => type;
+        
+        private Node _node;
         public Node Node => _node;
         
-        private CircuitController _circuitController;
         private int _nodeId;
-        private Node _node;
+        public int NodeId => _nodeId;
 
+        private CircuitController _circuitController;
+        
         private void Awake()
         {
             _circuitController = GetComponentInParent<CircuitController>();
             
             switch (type)
             {
-                case NodeType.SOURCE:
-                    _node = new SourceNode();
-                    break;
-                case NodeType.SINK:
+                case NodeType.Input:
                     _node = new SinkNode();
                     break;
-                case NodeType.AND:
-                    _node = new AndNode();
-                    break;
-                case NodeType.OR:
-                    _node = new OrNode();
-                    break;
-                case NodeType.NOT:
-                    _node = new NotNode();
-                    break;
-                case NodeType.SIMPLE:
-                default:
-                    _node = new SimpleNode();
+                case NodeType.Output:
+                    _node = new SourceNode();
                     break;
             }
             
             _nodeId = _circuitController.AddNode(_node);
         }
-        
 
-        public bool IsAcceptingOutput()
+        public void ConnectTo(int? otherNodeId)
         {
-            return true;
+            if (!otherNodeId.HasValue)
+                return;
+                
+            _circuitController.ConnectNodes(_nodeId, otherNodeId.Value);
+        }
+
+        public bool CanConnect(int? otherNode)
+        {
+            if (!otherNode.HasValue)
+                return true;
+            
+            int inputNode = type == NodeType.Input ? NodeId : otherNode.Value;
+            int outputNode = type == NodeType.Output ? NodeId : otherNode.Value;
+            
+            return _circuitController.CanConnectNodes(inputNode, outputNode);
         }
     }
 }

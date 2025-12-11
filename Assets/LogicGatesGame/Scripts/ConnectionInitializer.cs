@@ -13,8 +13,6 @@ namespace LogicGatesGame.Scripts
         [SerializeField]
         private ConnectionSocket connectionSocket;
         
-        private WireInteractable _lastWire;
-        
         
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
@@ -22,9 +20,9 @@ namespace LogicGatesGame.Scripts
             
             interactionManager.SelectCancel(args.interactorObject, this);
             
-            _lastWire = Instantiate(wirePrefab);
-            _lastWire.SelectStart(connectionSocket);
-            _lastWire.SelectEnd(args.interactorObject);
+            WireInteractable wire = Instantiate(wirePrefab);
+            wire.SelectStart(connectionSocket);
+            wire.SelectEnd(args.interactorObject);
         }
 
         bool IsNearTarget(IXRInteractor interactor)

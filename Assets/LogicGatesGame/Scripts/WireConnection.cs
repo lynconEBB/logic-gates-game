@@ -7,12 +7,32 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 namespace LogicGatesGame.Scripts
 {
 
-public class WireConnection : XRGrabInteractable
+    public class WireConnection : XRGrabInteractable
     {
+        [SerializeField]
+        private WireConnection otherConnection;
+        
         private static readonly int FRAMES_TO_DESTROY = 5;
         private Coroutine _lateDestroyRoutine;
         public event Action OnDestroyed;
         
+        public int? CurrentNodeId
+        {
+            get;
+            set;
+        }
+
+        public int? GetOtherNode()
+        {
+            return otherConnection.CurrentNodeId;
+        }
+
+
+        public void Disconnect()
+        {
+            CurrentNodeId = null;
+        }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -35,7 +55,6 @@ public class WireConnection : XRGrabInteractable
             {
                 _lateDestroyRoutine = StartCoroutine(LateDestroyRoutine());
             }
-            Debug.Log("Wire connection exited");
         }
 
         private IEnumerator LateDestroyRoutine()
