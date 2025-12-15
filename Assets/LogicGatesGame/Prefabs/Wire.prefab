@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544006985431888983}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7138789, w: 0.7002692}
-  m_LocalPosition: {x: 0.364, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.7499, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6838348741510468850}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3419047188344815096
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 1
+  m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -429,6 +429,104 @@ MonoBehaviour:
   splineContainer: {fileID: 8367070583230531108}
   pointA: {fileID: 7490858000221211604}
   pointB: {fileID: 5016785667644088355}
+--- !u!1 &6007714124053657355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3263846902156801346}
+  - component: {fileID: 4946865152142489710}
+  - component: {fileID: 3628218363367644740}
+  - component: {fileID: 1724389436137792725}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3263846902156801346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007714124053657355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6838348741510468850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4946865152142489710
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007714124053657355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.01
+  m_Height: 0.2
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3628218363367644740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007714124053657355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 224c1fe8e16146b099b01c0555b87ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.CapsuleColliderFitter
+  transformA: {fileID: 3852164477017303546}
+  transformB: {fileID: 3985440682363902301}
+--- !u!54 &1724389436137792725
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007714124053657355}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6894666660044216657
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +560,7 @@ Transform:
   - {fileID: 947683418814824680}
   - {fileID: 3852164477017303546}
   - {fileID: 3985440682363902301}
+  - {fileID: 3263846902156801346}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3047154533185969774
@@ -478,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.WireInteractable
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 0}
+  - {fileID: 4946865152142489710}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -539,6 +638,7 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   pointA: {fileID: 7490858000221211604}
   pointB: {fileID: 5016785667644088355}
+  renderer: {fileID: 5101311668442489780}
 --- !u!1 &7423157322487761238
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,13 +666,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7423157322487761238}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7138789, w: 0.7002692}
-  m_LocalPosition: {x: 0.0454, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.7499, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6838348741510468850}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7056359374414970788
 Rigidbody:
   m_ObjectHideFlags: 0

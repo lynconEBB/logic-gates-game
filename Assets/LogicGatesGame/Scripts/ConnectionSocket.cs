@@ -32,6 +32,12 @@ namespace LogicGatesGame.Scripts
             _nodeComponent = GetComponentInParent<NodeComponent>();
         }
 
+        public override void GetValidTargets(List<IXRInteractable> targets)
+        {
+            base.GetValidTargets(targets);
+            targets.RemoveAll(t => t is WireConnection w && _socketedConnection.Contains(w));
+        }
+
         protected override void Start()
         {
             base.Start();
@@ -39,6 +45,11 @@ namespace LogicGatesGame.Scripts
             _material.color = defaultColor;
         }
 
+        public override bool CanHover(IXRHoverInteractable interactable)
+        {
+            return interactable is WireConnection wireConnection;
+        }
+        
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             if (args.interactableObject is WireConnection wireConnection)
@@ -55,16 +66,12 @@ namespace LogicGatesGame.Scripts
             _material.color = defaultColor; 
         }
         
-        public override bool CanHover(IXRHoverInteractable interactable)
-        {
-            return interactable is WireConnection wireConnection 
-                   && !_socketedConnection.Contains(wireConnection);
-        }
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            return !interactable.isSelected && interactable is WireConnection wireConnection && _nodeComponent.CanConnect(wireConnection.GetOtherNode())
-                   && !_socketedConnection.Contains(wireConnection);         
+            return !interactable.isSelected && interactable is WireConnection wireConnection
+                                            && _nodeComponent.CanConnect(wireConnection.GetOtherNode());
+
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -78,12 +85,12 @@ namespace LogicGatesGame.Scripts
                 wireConnection.OnDestroyed += () =>
                 {
                     _socketedConnection.Remove(wireConnection);
+                    _nodeComponent.DisconnectFrom(wireConnection.GetOtherNode());
                 };
                 
                 wireConnection.CurrentNodeId = _nodeComponent.NodeId;
                 _nodeComponent.ConnectTo(wireConnection.GetOtherNode());
             }
         }
-        
     }
 }

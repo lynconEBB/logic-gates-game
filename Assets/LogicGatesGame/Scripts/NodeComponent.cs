@@ -19,18 +19,7 @@ namespace LogicGatesGame.Scripts
         private void Awake()
         {
             _circuitController = GetComponentInParent<CircuitController>();
-            
-            switch (type)
-            {
-                case NodeType.Input:
-                    _node = new SinkNode();
-                    break;
-                case NodeType.Output:
-                    _node = new SourceNode();
-                    break;
-            }
-            
-            _nodeId = _circuitController.AddNode(_node);
+            _nodeId = _circuitController.AddNode(type);
         }
 
         public void ConnectTo(int? otherNodeId)
@@ -38,7 +27,10 @@ namespace LogicGatesGame.Scripts
             if (!otherNodeId.HasValue)
                 return;
                 
-            _circuitController.ConnectNodes(_nodeId, otherNodeId.Value);
+            int inputNode = type == NodeType.Input ? NodeId : otherNodeId.Value;
+            int outputNode = type == NodeType.Output ? NodeId : otherNodeId.Value;
+            
+            _circuitController.ConnectNodes(inputNode, outputNode);
         }
 
         public bool CanConnect(int? otherNode)
@@ -50,6 +42,18 @@ namespace LogicGatesGame.Scripts
             int outputNode = type == NodeType.Output ? NodeId : otherNode.Value;
             
             return _circuitController.CanConnectNodes(inputNode, outputNode);
+        }
+
+        public bool DisconnectFrom(int? otherNode)
+        {
+            if (!otherNode.HasValue)
+                return true;
+            
+            int inputNode = type == NodeType.Input ? NodeId : otherNode.Value;
+            int outputNode = type == NodeType.Output ? NodeId : otherNode.Value;
+            
+            return _circuitController.DisconnectNodes(inputNode, outputNode);
+            
         }
     }
 }

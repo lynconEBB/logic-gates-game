@@ -10,9 +10,11 @@ namespace LogicGatesGame.Scripts
     
     public abstract class Node
     {
+        private readonly int _id;
+        public int Id => _id;
+        
         public virtual int? maxInputs => null;
         public virtual int? maxOutputs => null;
-        
         
         protected List<Node> inputs = new();
         protected List<Node> outputs = new();
@@ -20,9 +22,14 @@ namespace LogicGatesGame.Scripts
         public List<Node> Inputs => inputs;
         public List<Node> Outputs => outputs;
 
+        public Node(int id)
+        {
+            _id = id;
+        }
+
         public bool TryAddInput(Node input)
         {
-            if (maxInputs != null && inputs.Count >= maxInputs)
+            if (!CanAddToInputSlot(input))
                 return false;
             
             inputs.Add(input);
@@ -31,7 +38,7 @@ namespace LogicGatesGame.Scripts
 
         public bool TryAddOutput(Node output)
         {
-            if (maxOutputs != null && outputs.Count >= maxOutputs)
+            if (!CanAddToOutputSlot(output))
                 return false;
             
             outputs.Add(output);
@@ -55,6 +62,10 @@ namespace LogicGatesGame.Scripts
     {
         public bool value;
 
+        public SourceNode(int id) : base(id)
+        {
+        }
+
         public override int? maxInputs => 0;
 
         public override bool? Evaluate()
@@ -65,6 +76,10 @@ namespace LogicGatesGame.Scripts
 
     public class SinkNode : Node
     {
+        public SinkNode(int id) : base(id)
+        {
+        }
+
         public override int? maxOutputs => 0;
 
         public override int? maxInputs => 1;
@@ -77,6 +92,10 @@ namespace LogicGatesGame.Scripts
 
     public class SimpleNode : Node
     {
+        public SimpleNode(int id) : base(id)
+        {
+        }
+
         public override int? maxInputs => 1;
 
         public override bool? Evaluate()
@@ -92,6 +111,10 @@ namespace LogicGatesGame.Scripts
 
     public class AndNode : Node
     {
+        public AndNode(int id) : base(id)
+        {
+        }
+
         public override bool? Evaluate()
         {
             if (inputs.Count == 0)
@@ -113,6 +136,10 @@ namespace LogicGatesGame.Scripts
 
     public class OrNode : Node
     {
+        public OrNode(int id) : base(id)
+        {
+        }
+
         public override bool? Evaluate()
         {
             if (inputs.Count == 0)
@@ -133,6 +160,10 @@ namespace LogicGatesGame.Scripts
     
     public class NotNode : Node
     {
+        public NotNode(int id) : base(id)
+        {
+        }
+
         public override int? maxInputs => 1;
 
         public override bool? Evaluate()

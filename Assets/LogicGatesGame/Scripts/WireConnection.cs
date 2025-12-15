@@ -27,7 +27,6 @@ namespace LogicGatesGame.Scripts
             return otherConnection.CurrentNodeId;
         }
 
-
         public void Disconnect()
         {
             CurrentNodeId = null;
