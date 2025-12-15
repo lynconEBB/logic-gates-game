@@ -77,8 +77,7 @@ namespace LogicGatesGame.Scripts
     public class SinkNode : Node
     {
         public SinkNode(int id) : base(id)
-        {
-        }
+        { }
 
         public override int? maxOutputs => 0;
 

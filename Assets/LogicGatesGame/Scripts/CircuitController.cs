@@ -6,27 +6,27 @@ namespace LogicGatesGame.Scripts
 {
     public class Circuit
     {
-        public int lastId = 0;
+        private int _lastId = 0;
         private Dictionary<int, Node> _nodes = new();
 
         public int AddNode(NodeType type)
         {
-            lastId++;
+            _lastId++;
             Node node;
             switch (type)
             {
                 case NodeType.Input:
-                    node = new SinkNode(lastId);
+                    node = new SinkNode(_lastId);
                     break;
                 case NodeType.Output:
-                    node = new SourceNode(lastId);
+                    node = new SourceNode(_lastId);
                     break;
                 default:
-                    node = new SourceNode(lastId);
+                    node = new SourceNode(_lastId);
                     break;
             }
-            _nodes.Add(lastId, node);
-            return lastId;
+            _nodes.Add(_lastId, node);
+            return _lastId;
         }
 
         public void RemoveNode(int nodeId)
