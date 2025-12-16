@@ -38,6 +38,11 @@ namespace LogicGatesGame.Scripts
 
             if (args.interactorObject is ConnectionSocket socket)
             {
+                foreach (var coll in colliders)
+                {
+                    coll.enabled = false;
+                }
+
                 if (_lateDestroyRoutine != null)
                 {
                     StopCoroutine(_lateDestroyRoutine);
@@ -63,7 +68,6 @@ namespace LogicGatesGame.Scripts
                 yield return new WaitForEndOfFrame();
             }
             Destroy(gameObject);
-            // The connection is destroyed here
         }
 
         protected override void OnDestroy()

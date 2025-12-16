@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LogicGatesGame.Scripts
 {
@@ -23,7 +22,7 @@ namespace LogicGatesGame.Scripts
             _collider.transform.position = (transformA.position + transformB.position) / 2;
             Vector3 diff = transformA.position - transformB.position;
             _collider.transform.rotation = Quaternion.LookRotation(diff.normalized);
-            _collider.height = Mathf.Max(diff.magnitude - 0.1f, 0f) ;
+            _collider.height = Mathf.Max(diff.magnitude - 0.1f, 0f);
         }
 
         private void Update()

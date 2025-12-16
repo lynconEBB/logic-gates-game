@@ -12,8 +12,6 @@ namespace LogicGatesGame.Scripts
         [SerializeField]
         private MeshRenderer meshRenderer;
 
-        private List<WireConnection> _socketedConnection = new();
-        
         [SerializeField]
         private Color invalidColor = Color.red;
         [SerializeField]
@@ -21,10 +19,9 @@ namespace LogicGatesGame.Scripts
         [SerializeField]
         private Color defaultColor = Color.white;
 
-        private const float positionTolerance = 0.001f;
-        
         private NodeComponent _nodeComponent;
         private Material _material;
+        private List<WireConnection> _socketedConnection = new();
         
         protected override void Awake()
         {
@@ -47,7 +44,7 @@ namespace LogicGatesGame.Scripts
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            return interactable is WireConnection wireConnection;
+            return interactable is WireConnection;
         }
         
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -69,8 +66,9 @@ namespace LogicGatesGame.Scripts
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            return !interactable.isSelected && interactable is WireConnection wireConnection
-                                            && _nodeComponent.CanConnect(wireConnection.GetOtherNode());
+            return !interactable.isSelected 
+                   && interactable is WireConnection wireConnection
+                   && _nodeComponent.CanConnect(wireConnection.GetOtherNode());
 
         }
 
