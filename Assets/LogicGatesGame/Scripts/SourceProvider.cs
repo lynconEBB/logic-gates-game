@@ -17,5 +17,7 @@ namespace LogicGatesGame.Scripts
             }
         }
         public event UnityAction<bool> OnValueChanged;
+        
+        public void ToggleValue() => Value = !Value;
     }
 }

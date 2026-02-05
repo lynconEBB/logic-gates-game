@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks.Sources;
 
 namespace LogicGatesGame.Scripts
 {
-    public enum NodeType
+
+    public enum NodeClass
     {
-        Output,
-        Input,
+        Source,
+        Sink,
+        Simple,
+        And,
+        Or,
+        Not
     }
     
     public abstract class Node
@@ -22,6 +28,8 @@ namespace LogicGatesGame.Scripts
         
         public List<Node> Inputs => inputs;
         public List<Node> Outputs => outputs;
+        
+        public event Action<bool?> OnEvaluated;
 
         public Node(int id)
         {
@@ -56,7 +64,14 @@ namespace LogicGatesGame.Scripts
             return maxInputs == null || inputs.Count < maxInputs;
         }
 
-        public abstract bool? Evaluate();
+        public bool? Evaluate()
+        {
+            bool? result = ExecEvaluation();
+            OnEvaluated?.Invoke(result);
+            return result;
+        }
+        
+        public abstract bool? ExecEvaluation();
     }
 
     public class SourceNode : Node
@@ -74,7 +89,7 @@ namespace LogicGatesGame.Scripts
 
         public override int? maxInputs => 0;
 
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
             return value;
         }
@@ -89,28 +104,25 @@ namespace LogicGatesGame.Scripts
 
         public override int? maxInputs => 1;
         
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
-            return true;
+            if (inputs.Count == 0)
+                return null;
+            return inputs[0].ExecEvaluation();
         }
     }
 
     public class SimpleNode : Node
     {
-        public SimpleNode(int id) : base(id)
-        {
-        }
+        public SimpleNode(int id) : base(id) {}
 
         public override int? maxInputs => 1;
 
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
             if (inputs.Count == 0)
                 return null;
-            bool? inVal = inputs[0].Evaluate();
-            if (!inVal.HasValue)
-                return null;
-            return inVal;
+            return inputs[0].ExecEvaluation();
         }
     }
 
@@ -120,14 +132,14 @@ namespace LogicGatesGame.Scripts
         {
         }
 
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
             if (inputs.Count == 0)
                 return null;
             
             foreach (Node node in inputs)
             {
-                bool? nodeVal = node.Evaluate();
+                bool? nodeVal = node.ExecEvaluation();
                 if (!nodeVal.HasValue)
                     return null;
                 if (nodeVal.Value == false)
@@ -145,13 +157,13 @@ namespace LogicGatesGame.Scripts
         {
         }
 
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
             if (inputs.Count == 0)
                 return null;
             foreach (Node node in inputs)
             {
-                bool? nodeVal = node.Evaluate();
+                bool? nodeVal = node.ExecEvaluation();
                 if (!nodeVal.HasValue)
                     return null;
                 if (nodeVal.Value == true)
@@ -171,11 +183,11 @@ namespace LogicGatesGame.Scripts
 
         public override int? maxInputs => 1;
 
-        public override bool? Evaluate()
+        public override bool? ExecEvaluation()
         {
             if (inputs.Count == 0)
                 return null;
-            bool? inVal = inputs[0].Evaluate();
+            bool? inVal = inputs[0].ExecEvaluation();
             if (!inVal.HasValue)
                 return null;
             return !inVal;

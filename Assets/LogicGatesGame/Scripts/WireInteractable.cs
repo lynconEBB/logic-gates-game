@@ -13,35 +13,21 @@ namespace LogicGatesGame.Scripts
         [FormerlySerializedAs("endInteractable")] [SerializeField] 
         private WireConnection pointB;
 
-        [SerializeField] 
-        private MeshRenderer renderer;
-
+        [SerializeField]
+        private StateVisualizer stateVisualizer;
 
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
             return base.IsHoverableBy(interactor) 
-                   && pointA.CurrentNodeId.HasValue 
-                   && pointB.CurrentNodeId.HasValue;
+                   && pointA.CurrentNode != null 
+                   && pointB.CurrentNode != null;
         }
 
         public override bool IsSelectableBy(IXRSelectInteractor interactor)
         {
             return base.IsSelectableBy(interactor) && interactor is not ConnectionSocket 
-                                                   && pointA.CurrentNodeId.HasValue 
-                                                   && pointB.CurrentNodeId.HasValue;
-        }
-
-        protected override void OnHoverEntered(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntered(args);
-            renderer.material.color = Color.yellow;     
-        }
-
-        protected override void OnHoverExited(HoverExitEventArgs args)
-        {
-            base.OnHoverExited(args);
-            if (renderer)
-                renderer.material.color = Color.white;     
+                                                   && pointA.CurrentNode != null 
+                                                   && pointB.CurrentNode != null;
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -55,6 +41,27 @@ namespace LogicGatesGame.Scripts
             base.OnEnable();
             pointA.OnDestroyed += AutoDestroy;
             pointB.OnDestroyed += AutoDestroy;
+            
+            pointA.selectEntered.AddListener(OnPointSelectEntered);
+            pointB.selectEntered.AddListener(OnPointSelectEntered);
+        }
+
+        private void OnPointSelectEntered(SelectEnterEventArgs args)
+        {
+            if (args.interactorObject is ConnectionSocket)
+            {
+                WireConnection wireConn = args.interactableObject as WireConnection;
+
+                if (wireConn.CurrentNode is SourceNode)
+                {
+                    stateVisualizer.SetNodeObserved(wireConn.CurrentNode);
+                }
+            }
+        }
+
+        private void OnSourceEvaluated(bool? state)
+        {
+            
         }
 
         protected override void OnDisable()

@@ -16,20 +16,15 @@ namespace LogicGatesGame.Scripts
         private Coroutine _lateDestroyRoutine;
         public event Action OnDestroyed;
         
-        public int? CurrentNodeId
+        public Node CurrentNode
         {
             get;
             set;
         }
 
-        public int? GetOtherNode()
+        public Node GetOtherNode()
         {
-            return otherConnection.CurrentNodeId;
-        }
-
-        public void Disconnect()
-        {
-            CurrentNodeId = null;
+            return otherConnection.CurrentNode;
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)

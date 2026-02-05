@@ -22,20 +22,59 @@ namespace LogicGatesGame.Scripts
             if (_nodes.TryGetValue(nodeId, out Node node) && node is SourceNode sourceNode)
             {
                 sourceNode.setValue(newVal);        
+                EvaluateTree(sourceNode);
+            }
+        }
+
+        private void EvaluateTree(Node rootNode)
+        {
+            if (rootNode == null)
+                return;
+            
+            Queue<Node> queue = new Queue<Node>();
+            HashSet<Node> visited = new HashSet<Node>();
+            
+            visited.Add(rootNode);
+            queue.Enqueue(rootNode);
+            while (queue.Count > 0)
+            {
+                Node current = queue.Dequeue();
+                current.Evaluate();
+                
+                foreach (Node outNode in current.Outputs)
+                {
+                    if (!visited.Contains(outNode))
+                    {
+                        visited.Add(outNode);
+                        queue.Enqueue(outNode);
+                    }
+                }
             }
         }
         
-        public int AddNode(NodeType type)
+        public int AddNode(NodeClass nodeClass)
         {
             _lastId++;
             Node node;
-            switch (type)
+            switch (nodeClass)
             {
-                case NodeType.Input:
+                case NodeClass.Sink:
                     node = new SinkNode(_lastId);
                     break;
-                case NodeType.Output:
+                case NodeClass.Source:
                     node = new SourceNode(_lastId);
+                    break;
+                case NodeClass.Simple:
+                    node = new SimpleNode(_lastId);
+                    break;
+                case NodeClass.And:
+                    node = new AndNode(_lastId);
+                    break;
+                case NodeClass.Or:
+                    node = new OrNode(_lastId);
+                    break;
+                case NodeClass.Not:
+                    node = new NotNode(_lastId);
                     break;
                 default:
                     node = new SourceNode(_lastId);
@@ -70,8 +109,8 @@ namespace LogicGatesGame.Scripts
 
             _nodes[inputNodeId].TryAddInput(_nodes[outputNodeId]);
             _nodes[outputNodeId].TryAddOutput(_nodes[inputNodeId]);
+            _nodes[inputNodeId].Evaluate();
             
-            PrintState();
             return true;
         }
         
@@ -82,8 +121,8 @@ namespace LogicGatesGame.Scripts
             
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
+            _nodes[inputNode].Evaluate();
             
-            PrintState();
             return true;
         }
 
@@ -138,11 +177,5 @@ namespace LogicGatesGame.Scripts
                 Debug.Log(sb.ToString());
             } 
         }
-
-        public void UpdateEvaluation()
-        {
-            
-        }
-
     }
 }

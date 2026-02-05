@@ -2,6 +2,12 @@
 
 namespace LogicGatesGame.Scripts
 {
+    public enum NodeType
+    {
+        Output,
+        Input,
+    }
+    
     public class NodeComponent : MonoBehaviour
     {
         [SerializeField]
@@ -16,25 +22,36 @@ namespace LogicGatesGame.Scripts
         
         [SerializeField]
         private SourceProvider sourceProvider;
-        
-
         private CircuitController _circuitController;
         
         private void Awake()
         {
-            _circuitController = GetComponentInParent<CircuitController>();
-            _nodeId = _circuitController.AddNode(type);
+            AssignController(GetComponentInParent<CircuitController>(), Type == NodeType.Input ? NodeClass.Sink : NodeClass.Source);
+            
             if (type == NodeType.Output && sourceProvider != null)
             {
-                sourceProvider.OnValueChanged += arg0 =>
+                sourceProvider.OnValueChanged += state =>
                 {
-                    _circuitController.UpdateValue(_nodeId, arg0);
+                    _circuitController.UpdateValue(_nodeId, state);
                 };
             }
+        }
+
+        public void AssignController(CircuitController controller, NodeClass nodeClass)
+        {
+            _circuitController = controller;
+            if (!_circuitController) 
+                return;
+            
+            _nodeId = _circuitController.AddNode(nodeClass);
+            _node = _circuitController.GetNode(_nodeId);
         }
         
         public bool CanConnect(int? otherNode)
         {
+            if (_node == null)
+                return false;
+            
             if (!otherNode.HasValue)
                 return true;
             
@@ -46,7 +63,7 @@ namespace LogicGatesGame.Scripts
 
         public void ConnectTo(int? otherNodeId)
         {
-            if (!otherNodeId.HasValue)
+            if (!otherNodeId.HasValue || _node == null)
                 return;
                 
             int inputNode = type == NodeType.Input ? NodeId : otherNodeId.Value;
@@ -55,16 +72,15 @@ namespace LogicGatesGame.Scripts
             _circuitController.ConnectNodes(inputNode, outputNode);
         }
 
-        public bool DisconnectFrom(int? otherNode)
+        public void DisconnectFrom(int? otherNode)
         {
-            if (!otherNode.HasValue)
-                return true;
+            if (!otherNode.HasValue || _node == null)
+                return;
             
             int inputNode = type == NodeType.Input ? NodeId : otherNode.Value;
             int outputNode = type == NodeType.Output ? NodeId : otherNode.Value;
             
-            return _circuitController.DisconnectNodes(inputNode, outputNode);
-            
+            _circuitController.DisconnectNodes(inputNode, outputNode);
         }
     }
 }

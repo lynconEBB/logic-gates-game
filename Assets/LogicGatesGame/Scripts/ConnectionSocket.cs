@@ -13,14 +13,13 @@ namespace LogicGatesGame.Scripts
         private MeshRenderer meshRenderer;
 
         [SerializeField]
+        private Outline outline;
+        [SerializeField]
         private Color invalidColor = Color.red;
         [SerializeField]
         private Color validColor = Color.green;
-        [SerializeField]
-        private Color defaultColor = Color.white;
 
         private NodeComponent _nodeComponent;
-        private Material _material;
         private List<WireConnection> _socketedConnection = new();
         
         protected override void Awake()
@@ -35,32 +34,26 @@ namespace LogicGatesGame.Scripts
             targets.RemoveAll(t => t is WireConnection w && _socketedConnection.Contains(w));
         }
 
-        protected override void Start()
-        {
-            base.Start();
-            _material = meshRenderer.material;
-            _material.color = defaultColor;
-        }
-
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            return interactable is WireConnection;
+            return interactable is WireConnection && _nodeComponent.Node != null;
         }
         
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             if (args.interactableObject is WireConnection wireConnection)
             {
-                _material.color = _nodeComponent.CanConnect(wireConnection.GetOtherNode())
+                outline.OutlineColor = _nodeComponent.CanConnect(wireConnection.GetOtherNode()?.Id)
                     ? validColor
                     : invalidColor;
+                outline.enabled = true;
             }
         }
 
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
-            _material.color = defaultColor; 
+            outline.enabled = false;            
         }
         
 
@@ -68,7 +61,7 @@ namespace LogicGatesGame.Scripts
         {
             return !interactable.isSelected 
                    && interactable is WireConnection wireConnection
-                   && _nodeComponent.CanConnect(wireConnection.GetOtherNode());
+                   && _nodeComponent.CanConnect(wireConnection.GetOtherNode()?.Id);
 
         }
 
@@ -83,11 +76,11 @@ namespace LogicGatesGame.Scripts
                 wireConnection.OnDestroyed += () =>
                 {
                     _socketedConnection.Remove(wireConnection);
-                    _nodeComponent.DisconnectFrom(wireConnection.GetOtherNode());
+                    _nodeComponent.DisconnectFrom(wireConnection.GetOtherNode()?.Id);
                 };
                 
-                wireConnection.CurrentNodeId = _nodeComponent.NodeId;
-                _nodeComponent.ConnectTo(wireConnection.GetOtherNode());
+                wireConnection.CurrentNode = _nodeComponent.Node;
+                _nodeComponent.ConnectTo(wireConnection.GetOtherNode()?.Id);
             }
         }
     }

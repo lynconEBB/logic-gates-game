@@ -224,6 +224,8 @@ GameObject:
   - component: {fileID: 5101311668442489780}
   - component: {fileID: 6293374898956756732}
   - component: {fileID: 4917523779421258129}
+  - component: {fileID: 5189734680366494813}
+  - component: {fileID: 7388435969189731132}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -429,6 +431,40 @@ MonoBehaviour:
   splineContainer: {fileID: 8367070583230531108}
   pointA: {fileID: 7490858000221211604}
   pointB: {fileID: 5016785667644088355}
+--- !u!114 &5189734680366494813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298629975688566834}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 0.5916221, g: 1, b: 0.11792451, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &7388435969189731132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298629975688566834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413f8c9013e643029bc637aaeb4d93f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.StateVisualizer
+  nodeComp: {fileID: 0}
+  trueColor: {r: 0, g: 1, b: 1, a: 1}
+  falseColor: {r: 1, g: 1, b: 1, a: 1}
+  undefinedColor: {r: 0.8588236, g: 0.4392157, b: 0.5764706, a: 1}
 --- !u!1 &6007714124053657355
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,10 +635,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5189734680366494813}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5189734680366494813}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -638,7 +698,7 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   pointA: {fileID: 7490858000221211604}
   pointB: {fileID: 5016785667644088355}
-  renderer: {fileID: 5101311668442489780}
+  stateVisualizer: {fileID: 7388435969189731132}
 --- !u!1 &7423157322487761238
 GameObject:
   m_ObjectHideFlags: 0

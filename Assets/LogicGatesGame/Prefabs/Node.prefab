@@ -70,9 +70,9 @@ MonoBehaviour:
   m_StartingSelectFilters: []
   debugRadius: 0.1
   meshRenderer: {fileID: 8737847884113359519}
+  outline: {fileID: 3786357683337810585}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   validColor: {r: 0, g: 1, b: 0, a: 1}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!135 &3266489933587239856
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.NodeComponent
   type: 0
+  sourceProvider: {fileID: 0}
 --- !u!1 &7797633771759520889
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +282,8 @@ GameObject:
   - component: {fileID: 8032722899769910657}
   - component: {fileID: 5842950425257277739}
   - component: {fileID: 8737847884113359519}
+  - component: {fileID: 3786357683337810585}
+  - component: {fileID: 6658766490371389717}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -359,3 +362,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3786357683337810585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7797633771759520889}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 4
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &6658766490371389717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7797633771759520889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413f8c9013e643029bc637aaeb4d93f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.StateVisualizer
+  nodeComp: {fileID: 4712230154205671124}
+  trueColor: {r: 0, g: 1, b: 1, a: 1}
+  falseColor: {r: 1, g: 1, b: 1, a: 1}
+  undefinedColor: {r: 0.8588236, g: 0.4392157, b: 0.5764706, a: 1}

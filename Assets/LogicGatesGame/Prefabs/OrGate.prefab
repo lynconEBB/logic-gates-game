@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9151238296301174845
+--- !u!1001 &3066731805816165381
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1176686662515967815, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04914
+      value: 0.41842777
       objectReference: {fileID: 0}
     - target: {fileID: 1176686662515967815, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.997
+      value: 1.1201
       objectReference: {fileID: 0}
     - target: {fileID: 1176686662515967815, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.54511
+      value: 0.44002616
       objectReference: {fileID: 0}
     - target: {fileID: 1176686662515967815, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,17 +48,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1695420047744932715, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1206
+      objectReference: {fileID: 0}
     - target: {fileID: 2399377969972769249, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.04
+      value: 0.024
       objectReference: {fileID: 0}
     - target: {fileID: 3555308555167587381, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -684158348836279346, guid: bd1822ba4de8cb44588db25e15336f68, type: 3}
-    - target: {fileID: 5598622691377955184, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+    - target: {fileID: 5918815338008715123, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.02443621
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918815338008715123, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0517
+      value: 0.0883
       objectReference: {fileID: 0}
     - target: {fileID: 6215480944245296111, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_Mesh

@@ -13,7 +13,14 @@ namespace LogicGatesGame.Scripts
         [SerializeField]
         private ConnectionSocket connectionSocket;
         
-        
+        private NodeComponent _nodeComponent;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _nodeComponent = GetComponentInParent<NodeComponent>();
+        }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -55,7 +62,7 @@ namespace LogicGatesGame.Scripts
         
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
-            return IsNearTarget(interactor);
+            return IsNearTarget(interactor) && _nodeComponent.Node != null;
         }
     }
 }
