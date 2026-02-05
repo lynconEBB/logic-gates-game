@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks.Sources;
 
 namespace LogicGatesGame.Scripts
 {
@@ -64,6 +65,11 @@ namespace LogicGatesGame.Scripts
 
         public SourceNode(int id) : base(id)
         {
+        }
+
+        public void setValue(bool newVal)
+        {
+            value = newVal; 
         }
 
         public override int? maxInputs => 0;

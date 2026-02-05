@@ -4,11 +4,27 @@ using UnityEngine;
 
 namespace LogicGatesGame.Scripts
 {
-    public class Circuit
+    public class CircuitController : MonoBehaviour
     {
         private int _lastId = 0;
         private Dictionary<int, Node> _nodes = new();
 
+        public Node GetNode(int nodeId)
+        {
+            if (!_nodes.TryGetValue(nodeId, out var node)) 
+                return null;
+            
+            return node;
+        }
+        
+        public void UpdateValue(int nodeId, bool newVal)
+        {
+            if (_nodes.TryGetValue(nodeId, out Node node) && node is SourceNode sourceNode)
+            {
+                sourceNode.setValue(newVal);        
+            }
+        }
+        
         public int AddNode(NodeType type)
         {
             _lastId++;
@@ -123,40 +139,10 @@ namespace LogicGatesGame.Scripts
             } 
         }
 
-    }
-
-    public class CircuitController : MonoBehaviour
-    {
-        private Circuit _circuit = new();
-
-        public int AddNode(NodeType type)
-        {
-            return _circuit.AddNode(type);
-        }
-
-        public bool CanConnectNodes(int inputNodeId, int outputNodeId)
-        {
-            return _circuit.CanConnectNodes(inputNodeId, outputNodeId); 
-        }
-
-        public bool ConnectNodes(int inputNodeId, int outputNodeId)
-        {
-            return _circuit.ConnectNodes(inputNodeId, outputNodeId);    
-        }
-
-        public void AddGate()
+        public void UpdateEvaluation()
         {
             
         }
 
-        public void RemoveGate()
-        {
-            
-        }
-
-        public bool DisconnectNodes(int inputNode, int outputNode)
-        {
-            return _circuit.DisconnectNodes(inputNode, outputNode);
-        }
     }
 }
