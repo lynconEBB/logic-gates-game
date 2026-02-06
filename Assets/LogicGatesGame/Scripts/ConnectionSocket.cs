@@ -80,6 +80,7 @@ namespace LogicGatesGame.Scripts
                 };
                 
                 wireConnection.CurrentNode = _nodeComponent.Node;
+                wireConnection.NodeComponent = _nodeComponent;
                 _nodeComponent.ConnectTo(wireConnection.GetOtherNode()?.Id);
             }
         }

@@ -76,7 +76,7 @@ namespace LogicGatesGame.Scripts
 
     public class SourceNode : Node
     {
-        public bool value;
+        public bool? value = null;
 
         public SourceNode(int id) : base(id)
         {

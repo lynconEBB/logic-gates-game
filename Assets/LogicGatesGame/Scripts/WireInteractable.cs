@@ -52,7 +52,7 @@ namespace LogicGatesGame.Scripts
             {
                 WireConnection wireConn = args.interactableObject as WireConnection;
 
-                if (wireConn.CurrentNode is SourceNode)
+                if (wireConn.NodeComponent.Type == NodeType.Output)
                 {
                     stateVisualizer.SetNodeObserved(wireConn.CurrentNode);
                 }

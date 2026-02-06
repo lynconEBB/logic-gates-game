@@ -22,6 +22,12 @@ namespace LogicGatesGame.Scripts
             set;
         }
 
+        public NodeComponent NodeComponent
+        {
+            get;
+            set;
+        }
+
         public Node GetOtherNode()
         {
             return otherConnection.CurrentNode;

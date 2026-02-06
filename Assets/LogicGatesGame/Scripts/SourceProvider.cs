@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace LogicGatesGame.Scripts
 {
     public class SourceProvider : MonoBehaviour
     {
+
         private bool _value = false;
         
         public bool Value
@@ -17,6 +19,11 @@ namespace LogicGatesGame.Scripts
             }
         }
         public event UnityAction<bool> OnValueChanged;
+        
+        private void Start()
+        {
+            Value = false;
+        }
         
         public void ToggleValue() => Value = !Value;
     }

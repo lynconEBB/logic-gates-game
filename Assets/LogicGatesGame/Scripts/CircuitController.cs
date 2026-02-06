@@ -109,7 +109,7 @@ namespace LogicGatesGame.Scripts
 
             _nodes[inputNodeId].TryAddInput(_nodes[outputNodeId]);
             _nodes[outputNodeId].TryAddOutput(_nodes[inputNodeId]);
-            _nodes[inputNodeId].Evaluate();
+            EvaluateTree(_nodes[inputNodeId]);
             
             return true;
         }
@@ -121,7 +121,7 @@ namespace LogicGatesGame.Scripts
             
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
-            _nodes[inputNode].Evaluate();
+            EvaluateTree(_nodes[inputNode]);
             
             return true;
         }

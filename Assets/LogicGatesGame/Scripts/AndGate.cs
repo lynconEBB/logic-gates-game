@@ -4,10 +4,12 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace LogicGatesGame.Scripts
 {
-    public class NotGate : XRGrabInteractable
+    public class AndGate : XRGrabInteractable
     {
         [SerializeField]
-        private NodeComponent inputNode;
+        private NodeComponent inputNodeA;
+        [SerializeField]
+        private NodeComponent inputNodeB;
         [SerializeField]
         private NodeComponent outputNode;
         
@@ -19,6 +21,7 @@ namespace LogicGatesGame.Scripts
 
             if (args.interactorObject is GateSocket socket)
             {
+                /*
                 inputNode.AssignController(socket.CircuitController, NodeClass.Simple);
                 inputNode.GetComponentInChildren<StateVisualizer>().SetNodeObserved(inputNode.Node);
                 outputNode.AssignController(socket.CircuitController, NodeClass.Simple);
@@ -28,6 +31,7 @@ namespace LogicGatesGame.Scripts
                 int notNodeId = socket.CircuitController.AddNode(NodeClass.Not);
                 socket.CircuitController.ConnectNodes(notNodeId, inputNode.NodeId);
                 socket.CircuitController.ConnectNodes(outputNode.NodeId, notNodeId);
+            */
             }
         }
     }
