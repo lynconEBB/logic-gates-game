@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace LogicGatesGame.Scripts
 {
-    public class AndGate : XRGrabInteractable
+    public class OrGate : XRGrabInteractable
     {
         [SerializeField]
         private NodeComponent inputNodeA;
@@ -30,7 +30,7 @@ namespace LogicGatesGame.Scripts
                 outputNode.AssignController(socket.CircuitController, NodeClass.Simple);
                 outputNode.GetComponentInChildren<StateVisualizer>().SetNodeObserved(outputNode.Node);
                 
-                int andNodeId = socket.CircuitController.AddNode(NodeClass.And);
+                int andNodeId = socket.CircuitController.AddNode(NodeClass.Or);
                 socket.CircuitController.ConnectNodes(andNodeId, inputNodeA.NodeId);
                 socket.CircuitController.ConnectNodes(andNodeId, inputNodeB.NodeId);
                 socket.CircuitController.ConnectNodes(outputNode.NodeId, andNodeId);

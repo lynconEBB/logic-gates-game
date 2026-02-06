@@ -527,7 +527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1176686662515967815}
   - component: {fileID: 8726630174155128519}
-  - component: {fileID: 6980957941422498837}
+  - component: {fileID: 6914407015074622951}
   m_Layer: 0
   m_Name: AndGate
   m_TagString: Untagged
@@ -582,7 +582,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6980957941422498837
+--- !u!114 &6914407015074622951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,14 +591,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7218150094633031289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: f196709ddb634968a03da48ee26099df, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.AndGate
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 3555308555167587381}
   m_InteractionLayers:
-    m_Bits: 4
+    m_Bits: 5
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -710,6 +710,9 @@ MonoBehaviour:
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
+  inputNodeA: {fileID: 1179195991150673131}
+  inputNodeB: {fileID: 6541657567825999960}
+  outputNode: {fileID: 4259852007050555201}
 --- !u!1001 &1994415951941179020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -718,9 +721,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1176686662515967815}
     m_Modifications:
+    - target: {fileID: 4712230154205671124, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6303599731452385141, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946012409779019548, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_Name
@@ -779,6 +786,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+--- !u!114 &6541657567825999960 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4712230154205671124, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+  m_PrefabInstance: {fileID: 1994415951941179020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539cb95e27ed457fae43889b4fe67b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.NodeComponent
 --- !u!4 &8525874563241839730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7925327107180337918, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
@@ -792,9 +810,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1176686662515967815}
     m_Modifications:
+    - target: {fileID: 4712230154205671124, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6303599731452385141, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946012409779019548, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_Name
@@ -853,6 +875,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+--- !u!114 &1179195991150673131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4712230154205671124, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+  m_PrefabInstance: {fileID: 5852547400472302143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539cb95e27ed457fae43889b4fe67b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.NodeComponent
 --- !u!4 &4378633369723570369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7925327107180337918, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
@@ -868,7 +901,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6303599731452385141, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946012409779019548, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_Name
@@ -924,3 +957,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7925327107180337918, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
   m_PrefabInstance: {fileID: 8825714481564451221}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4259852007050555201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4712230154205671124, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+  m_PrefabInstance: {fileID: 8825714481564451221}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539cb95e27ed457fae43889b4fe67b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.NodeComponent
