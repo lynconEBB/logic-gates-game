@@ -111,7 +111,6 @@ namespace LogicGatesGame.Scripts
             return inputs[0].ExecEvaluation();
         }
     }
-
     public class SimpleNode : Node
     {
         public SimpleNode(int id) : base(id) {}
