@@ -1,0 +1,14 @@
+{
+    "name": "LogicGatesGame.Logic",
+    "rootNamespace": "LogicGatesGame.Scripts",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
