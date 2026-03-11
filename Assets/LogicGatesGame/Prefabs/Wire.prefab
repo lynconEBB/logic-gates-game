@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3419047188344815096}
   - component: {fileID: 3542967000961436777}
   - component: {fileID: 5016785667644088355}
+  - component: {fileID: 122061624834853130}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -210,6 +211,24 @@ MonoBehaviour:
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
   otherConnection: {fileID: 7490858000221211604}
+--- !u!114 &122061624834853130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544006985431888983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c090a04a7307a49ac64d6eab68eb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
+  interactable: {fileID: 5016785667644088355}
+  calloutPrefab: {fileID: 4609460467608301973, guid: 74e31f105569d584b8e08142f75369ed, type: 3}
+  heightOffset: 0.1
+  spawnAnimationDuration: 0.1
+  updatePositionAlways: 1
+  positionMode: 0
 --- !u!1 &3298629975688566834
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +730,7 @@ GameObject:
   - component: {fileID: 7056359374414970788}
   - component: {fileID: 2239476288694534619}
   - component: {fileID: 7490858000221211604}
+  - component: {fileID: 3098301249295942790}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -909,3 +929,21 @@ MonoBehaviour:
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
   otherConnection: {fileID: 5016785667644088355}
+--- !u!114 &3098301249295942790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423157322487761238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c090a04a7307a49ac64d6eab68eb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
+  interactable: {fileID: 7490858000221211604}
+  calloutPrefab: {fileID: 4609460467608301973, guid: 74e31f105569d584b8e08142f75369ed, type: 3}
+  heightOffset: 0.1
+  spawnAnimationDuration: 0.1
+  updatePositionAlways: 1
+  positionMode: 0
