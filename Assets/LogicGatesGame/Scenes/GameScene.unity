@@ -2615,7 +2615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.539
+      value: 2.041
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5670,7 +5670,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1811122272821274886, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.045000006
+      value: 0.04499996
       objectReference: {fileID: 0}
     - target: {fileID: 1811122272821274886, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9612,6 +9612,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 741681218466946362, guid: d67a2c88456deb546807533851615262, type: 3}
   m_PrefabInstance: {fileID: 1434259145}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1476363371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6303599731452385141, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+  m_PrefabInstance: {fileID: 5589614277018259301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1476363373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7107203007403792258, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+  m_PrefabInstance: {fileID: 5589614277018259301}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476363371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47195704ce6f41078759df2981a3e77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.PortInteractable
+--- !u!114 &1476363375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476363371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c090a04a7307a49ac64d6eab68eb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
+  interactable: {fileID: 1476363373}
+  calloutPrefab: {fileID: 1473082980225912218, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+  heightOffset: 0.3
+  spawnAnimationDuration: 0.2
+  updatePositionAlways: 0
 --- !u!1001 &1479215988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14878,6 +14911,10 @@ PrefabInstance:
       propertyPath: sourceProvider
       value: 
       objectReference: {fileID: 1794953895}
+    - target: {fileID: 6658766490371389717, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      propertyPath: trueMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: dbd9ef6530be6f348b839192a45b5804, type: 2}
     - target: {fileID: 6946012409779019548, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
       propertyPath: m_Name
       value: SourceNodeA
@@ -14922,10 +14959,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8032722899769910657, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8737847884113359519, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7773e277cf8f9894fa8a46c4ada555e2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6303599731452385141, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1476363375}
   m_SourcePrefab: {fileID: 100100000, guid: 738d469499b72b840835fdc476f5c1dd, type: 3}
 --- !u!114 &6939387345633554768
 MonoBehaviour:
