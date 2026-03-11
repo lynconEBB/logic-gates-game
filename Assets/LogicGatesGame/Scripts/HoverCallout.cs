@@ -6,20 +6,43 @@ namespace LogicGatesGame.Scripts
 {
     public class HoverCallout : MonoBehaviour
     {
-        [SerializeField] private XRBaseInteractable interactable;
-        [SerializeField] private GameObject calloutPrefab;
-        [SerializeField] private float heightOffset = 0.3f;
+        [SerializeField] 
+        private XRBaseInteractable interactable;
+        [SerializeField] 
+        private GameObject calloutPrefab;
+        [SerializeField] 
+        private float heightOffset = 0.3f;
+        [SerializeField] 
+        private float spawnAnimationDuration = 0.2f;
+        [SerializeField] 
+        private bool updatePositionAlways;
 
         private GameObject _calloutInstance;
         private Camera _camera;
         private int _hoverCount;
+        private Vector3 _calloutOriginalScale;
+        private Vector3 _scaleTarget;
+        private Vector3 _scaleVelocity;
 
         private void Awake()
         {
-            if (interactable == null)
+            if (!interactable)
                 interactable = GetComponent<XRBaseInteractable>();
 
+            if (!interactable || !calloutPrefab)
+                throw new System.Exception("HoverCallout requires an interactable and a callout prefab");
+            
             _camera = Camera.main;
+            _calloutOriginalScale = calloutPrefab.transform.localScale;
+        }
+
+        private void Start()
+        {
+            _calloutInstance = Instantiate(calloutPrefab);
+            _calloutInstance.transform.position = transform.position + Vector3.up * heightOffset;
+            _calloutInstance.transform.localScale = Vector3.zero;
+            _scaleTarget = Vector3.zero;
+            _calloutInstance.SetActive(false);
         }
 
         private void OnEnable()
@@ -37,8 +60,11 @@ namespace LogicGatesGame.Scripts
         private void OnHoverEntered(HoverEnterEventArgs args)
         {
             _hoverCount++;
-            if (_calloutInstance == null)
-                _calloutInstance = Instantiate(calloutPrefab);
+            if (_hoverCount == 1)
+            {
+                _calloutInstance.SetActive(true);
+                _scaleTarget = _calloutOriginalScale;
+            }
         }
 
         private void OnHoverExited(HoverExitEventArgs args)
@@ -46,20 +72,34 @@ namespace LogicGatesGame.Scripts
             _hoverCount--;
             if (_hoverCount <= 0)
             {
-                Destroy(_calloutInstance);
-                _calloutInstance = null;
+                _scaleTarget = Vector3.zero;
                 _hoverCount = 0;
             }
         }
 
         private void LateUpdate()
         {
-            if (_calloutInstance == null || _camera == null) return;
+            if (!_calloutInstance.activeSelf || _camera == null) return;
 
-            _calloutInstance.transform.position = transform.position + Vector3.up * heightOffset;
+            if (updatePositionAlways)
+                _calloutInstance.transform.position = transform.position + Vector3.up * heightOffset;
 
             Vector3 toCamera = _camera.transform.position - _calloutInstance.transform.position;
             _calloutInstance.transform.rotation = Quaternion.LookRotation(toCamera);
+
+            Vector3 currentScale = _calloutInstance.transform.localScale;
+            if ((currentScale - _scaleTarget).sqrMagnitude > 0.0000001f)
+            {
+                _calloutInstance.transform.localScale = Vector3.SmoothDamp(
+                    currentScale, _scaleTarget, ref _scaleVelocity, spawnAnimationDuration);
+            }
+            else
+            {
+                _calloutInstance.transform.localScale = _scaleTarget;
+                _scaleVelocity = Vector3.zero;
+                if (_scaleTarget == Vector3.zero)
+                    _calloutInstance.SetActive(false);
+            }
         }
     }
 }
