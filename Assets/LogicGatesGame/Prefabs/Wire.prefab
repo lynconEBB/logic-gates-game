@@ -462,9 +462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.StateVisualizer
   nodeComp: {fileID: 0}
-  trueColor: {r: 0, g: 1, b: 1, a: 1}
-  falseColor: {r: 1, g: 1, b: 1, a: 1}
-  undefinedColor: {r: 0.8588236, g: 0.4392157, b: 0.5764706, a: 1}
+  trueMaterial: {fileID: 2100000, guid: dbd9ef6530be6f348b839192a45b5804, type: 2}
+  falseMaterial: {fileID: 2100000, guid: 2c7a2e19476cdd740abeae5d258c862c, type: 2}
+  undefinedMaterial: {fileID: 2100000, guid: 7773e277cf8f9894fa8a46c4ada555e2, type: 2}
 --- !u!1 &6007714124053657355
 GameObject:
   m_ObjectHideFlags: 0
