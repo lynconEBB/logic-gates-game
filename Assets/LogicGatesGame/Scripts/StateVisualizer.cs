@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LogicGatesGame.Scripts
 {
@@ -8,16 +7,16 @@ namespace LogicGatesGame.Scripts
         [SerializeField] 
         private NodeComponent nodeComp;
         private Node _node;
-        private Material _material;
+        private MeshRenderer _renderer;
 
-        public Color trueColor = Color.cyan;
-        public Color falseColor = Color.white;
-        public Color undefinedColor = Color.paleVioletRed;
-        
+        public Material trueMaterial;
+        public Material falseMaterial;
+        public Material undefinedMaterial;
+
         private void Awake()
         {
-            _material = GetComponent<MeshRenderer>().material;
-            _material.color = undefinedColor; 
+            _renderer = GetComponent<MeshRenderer>();
+            _renderer.material = undefinedMaterial;
         }
 
         private void Start()
@@ -47,11 +46,11 @@ namespace LogicGatesGame.Scripts
         {
             if (!state.HasValue)
             {
-                _material.color = undefinedColor; 
+                _renderer.material = undefinedMaterial;
                 return;
             }
 
-            _material.color = state.Value ? trueColor : falseColor;
+            _renderer.material = state.Value ? trueMaterial : falseMaterial;
         }
     }
 }
