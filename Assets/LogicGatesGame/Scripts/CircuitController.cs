@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace LogicGatesGame.Scripts
     {
         private int _lastId = 0;
         private Dictionary<int, Node> _nodes = new();
+
+        public event Action OnCircuitChanged;
 
         public Node GetNode(int nodeId)
         {
@@ -21,9 +24,10 @@ namespace LogicGatesGame.Scripts
         {
             if (_nodes.TryGetValue(nodeId, out Node node) && node is SourceNode sourceNode)
             {
-                sourceNode.setValue(newVal);        
+                sourceNode.setValue(newVal);
                 EvaluateTree(sourceNode);
             }
+            OnCircuitChanged?.Invoke();
         }
 
         private void EvaluateTree(Node rootNode)
@@ -100,6 +104,7 @@ namespace LogicGatesGame.Scripts
             }
 
             _nodes.Remove(nodeId);
+            OnCircuitChanged?.Invoke();
         }
 
         public bool ConnectNodes(int inputNodeId, int outputNodeId)
@@ -110,7 +115,7 @@ namespace LogicGatesGame.Scripts
             _nodes[inputNodeId].TryAddInput(_nodes[outputNodeId]);
             _nodes[outputNodeId].TryAddOutput(_nodes[inputNodeId]);
             EvaluateTree(_nodes[inputNodeId]);
-            
+            OnCircuitChanged?.Invoke();
             return true;
         }
         
@@ -122,7 +127,7 @@ namespace LogicGatesGame.Scripts
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
             EvaluateTree(_nodes[inputNode]);
-            
+            OnCircuitChanged?.Invoke();
             return true;
         }
 
