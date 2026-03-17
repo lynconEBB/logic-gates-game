@@ -65,6 +65,16 @@ namespace LogicGatesGame.Scripts
 
         }
 
+        public void DisconnectAll()
+        {
+            foreach (var wire in _socketedConnection.ToArray())
+            {
+                var wireInteractable = wire.GetComponentInParent<WireInteractable>();
+                if (wireInteractable != null)
+                    wireInteractable.AutoDestroy();
+            }
+        }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
