@@ -15,6 +15,16 @@ namespace LogicGatesGame.Scripts
 
         [SerializeField]
         private StateVisualizer stateVisualizer;
+        
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            pointA.OnDestroyed += AutoDestroy;
+            pointB.OnDestroyed += AutoDestroy;
+            
+            pointA.selectEntered.AddListener(OnPointSelectEntered);
+            pointB.selectEntered.AddListener(OnPointSelectEntered);
+        }
 
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
@@ -36,16 +46,6 @@ namespace LogicGatesGame.Scripts
             Destroy(gameObject);
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            pointA.OnDestroyed += AutoDestroy;
-            pointB.OnDestroyed += AutoDestroy;
-            
-            pointA.selectEntered.AddListener(OnPointSelectEntered);
-            pointB.selectEntered.AddListener(OnPointSelectEntered);
-        }
-
         private void OnPointSelectEntered(SelectEnterEventArgs args)
         {
             if (args.interactorObject is ConnectionSocket)
@@ -57,11 +57,6 @@ namespace LogicGatesGame.Scripts
                     stateVisualizer.SetNodeObserved(wireConn.CurrentNode);
                 }
             }
-        }
-
-        private void OnSourceEvaluated(bool? state)
-        {
-            
         }
 
         protected override void OnDisable()
