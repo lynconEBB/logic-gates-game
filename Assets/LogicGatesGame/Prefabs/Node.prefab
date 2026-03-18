@@ -54,6 +54,8 @@ MonoBehaviour:
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
   m_StartingTargetFilter: {fileID: 0}
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -105,6 +107,7 @@ GameObject:
   - component: {fileID: 2871226375134910861}
   - component: {fileID: 1829156400947240146}
   - component: {fileID: 7107203007403792258}
+  - component: {fileID: 4200085869509979531}
   m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
@@ -220,8 +223,28 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   wirePrefab: {fileID: 3047154533185969774, guid: d9a614a7a2a615e49a45685fdba61a1f, type: 3}
   connectionSocket: {fileID: 8270849947131213274}
+--- !u!114 &4200085869509979531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303599731452385141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c090a04a7307a49ac64d6eab68eb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
+  interactable: {fileID: 7107203007403792258}
+  calloutPrefab: {fileID: 1473082980225912218, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+  heightOffset: 0.1
+  spawnAnimationDuration: 0.1
+  updatePositionAlways: 0
+  positionMode: 0
 --- !u!1 &6946012409779019548
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +362,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8df7c6ed9950faf48bfd791d9bf1875b, type: 2}
+  - {fileID: 2100000, guid: 7773e277cf8f9894fa8a46c4ada555e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

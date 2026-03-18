@@ -528,6 +528,7 @@ GameObject:
   - component: {fileID: 1176686662515967815}
   - component: {fileID: 8726630174155128519}
   - component: {fileID: 6914407015074622951}
+  - component: {fileID: 6507709408057630198}
   m_Layer: 0
   m_Name: AndGate
   m_TagString: Untagged
@@ -655,6 +656,8 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   m_AttachTransform: {fileID: 1985890202912831730}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
@@ -663,7 +666,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
@@ -700,12 +703,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
+  m_ForceGravityOnDetach: 1
   m_RetainTransformParent: 1
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 1
   m_LimitLinearVelocity: 0
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
@@ -713,6 +716,25 @@ MonoBehaviour:
   inputNodeA: {fileID: 1179195991150673131}
   inputNodeB: {fileID: 6541657567825999960}
   outputNode: {fileID: 4259852007050555201}
+--- !u!114 &6507709408057630198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218150094633031289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c090a04a7307a49ac64d6eab68eb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
+  interactable: {fileID: 6914407015074622951}
+  calloutPrefab: {fileID: 3993109296071362802, guid: f2a1834f5eda4564ab277f1bc38f5ec8, type: 3}
+  heightOffset: 0.1
+  spawnAnimationDuration: 0.1
+  updatePositionAlways: 1
+  positionMode: 0
+  lookDirectionOffset: 0.05
 --- !u!1001 &1994415951941179020
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ namespace LogicGatesGame.Scripts
         private bool updatePositionAlways;
         [SerializeField]
         private CalloutPositionMode positionMode;
+        [SerializeField]
+        private float lookDirectionOffset = 0f;
 
         private enum CalloutPositionMode { Interactable, InteractionPoint }
 
@@ -89,20 +91,23 @@ namespace LogicGatesGame.Scripts
 
         private Vector3 GetCalloutPosition()
         {
-            if (positionMode == CalloutPositionMode.InteractionPoint && _currentInteractor != null)
-                return interactable.GetAttachTransform(_currentInteractor).position + Vector3.up * heightOffset;
+            Vector3 lookOffset = _camera != null
+                ? Vector3.ProjectOnPlane(_camera.transform.position - transform.position, Vector3.up).normalized * lookDirectionOffset
+                : Vector3.zero;
 
-            return transform.position + Vector3.up * heightOffset;
+            if (positionMode == CalloutPositionMode.InteractionPoint && _currentInteractor != null)
+                return interactable.GetAttachTransform(_currentInteractor).position + Vector3.up * heightOffset + lookOffset;
+
+            return transform.position + Vector3.up * heightOffset + lookOffset;
         }
 
         private void LateUpdate()
         {
             if (!_calloutInstance.activeSelf || _camera == null) return;
-
             if (updatePositionAlways)
                 _calloutInstance.transform.position = GetCalloutPosition();
 
-            Vector3 toCamera = _calloutInstance.transform.position - _camera.transform.position;
+            Vector3 toCamera = _camera.transform.position - _calloutInstance.transform.position;
             _calloutInstance.transform.rotation = Quaternion.LookRotation(toCamera);
 
             Vector3 currentScale = _calloutInstance.transform.localScale;

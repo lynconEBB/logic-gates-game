@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -11,6 +12,12 @@ namespace LogicGatesGame.Scripts
 
         private int? _gateNodeId;
         private CircuitController _circuitController;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            SetNodeInteractablesEnabled(false);
+        }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
@@ -36,13 +43,21 @@ namespace LogicGatesGame.Scripts
                 _circuitController.ConnectNodes(_gateNodeId.Value, input.NodeId);
 
             _circuitController.ConnectNodes(OutputNode.NodeId, _gateNodeId.Value);
+
+            SetNodeInteractablesEnabled(true);
         }
+
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
+            var rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+            
             base.OnSelectExited(args);
 
             if (_circuitController == null) return;
+
+            SetNodeInteractablesEnabled(false);
 
             foreach (var input in InputNodes)
                 foreach (var socket in input.GetComponentsInChildren<ConnectionSocket>())
@@ -57,6 +72,30 @@ namespace LogicGatesGame.Scripts
             _circuitController.DisconnectNodes(OutputNode.NodeId, _gateNodeId.Value);
 
             _circuitController = null;
+        }
+
+        private void SetNodeInteractablesEnabled(bool enabled)
+        {
+            foreach (var input in InputNodes)
+            {
+                foreach (var socket in input.GetComponentsInChildren<ConnectionSocket>())
+                    socket.enabled = enabled;
+                foreach (var initializer in input.GetComponentsInChildren<ConnectionInitializer>())
+                    initializer.enabled = enabled;
+            }
+
+            foreach (var socket in OutputNode.GetComponentsInChildren<ConnectionSocket>())
+                socket.enabled = enabled;
+            foreach (var initializer in OutputNode.GetComponentsInChildren<ConnectionInitializer>())
+                initializer.enabled = enabled;
+        }
+        
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (_circuitController != null && _gateNodeId.HasValue)
+                _circuitController.RemoveNode(_gateNodeId.Value);
         }
     }
 }

@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209924346839809899, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
       propertyPath: m_PresetInfoIsWorld
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2485126798258160879, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
       propertyPath: m_text
@@ -107,6 +107,26 @@ PrefabInstance:
     - target: {fileID: 2485126798258160879, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
       propertyPath: m_fontSizeBase
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768190340347050906, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768190340347050906, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768190340347050906, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768190340347050906, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768190340347050906, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 4177495921724070780, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
       propertyPath: m_AnchorMax.y
