@@ -22,6 +22,8 @@ namespace LogicGatesGame.Scripts
         private CalloutPositionMode positionMode;
         [SerializeField]
         private float lookDirectionOffset = 0f;
+        [SerializeField]
+        private InteractionLayerMask triggerLayers = ~0;
 
         private enum CalloutPositionMode { Interactable, InteractionPoint }
 
@@ -68,6 +70,9 @@ namespace LogicGatesGame.Scripts
 
         private void OnHoverEntered(HoverEnterEventArgs args)
         {
+            if ((args.interactorObject.interactionLayers & triggerLayers) == 0)
+                return;
+
             _hoverCount++;
             if (_hoverCount == 1)
             {
@@ -80,6 +85,9 @@ namespace LogicGatesGame.Scripts
 
         private void OnHoverExited(HoverExitEventArgs args)
         {
+            if ((args.interactorObject.interactionLayers & triggerLayers) == 0)
+                return;
+
             _hoverCount--;
             if (_hoverCount <= 0)
             {

@@ -11,6 +11,7 @@ namespace LogicGatesGame.Scripts
         [SerializeField] private SplineContainer splineContainer;
         [SerializeField] private WireConnection pointA;
         [SerializeField] private WireConnection pointB;
+        [SerializeField] private Transform midpoint;
 
         private Spline _spline;
         private BezierKnot _startKnot;
@@ -69,6 +70,13 @@ namespace LogicGatesGame.Scripts
                 _startKnot.Rotation = quaternion.identity;
                 _endKnot.Position = target;
                 _spline[1] = _endKnot;
+            }
+
+            if (midpoint != null)
+            {
+                Vector3 worldA = splineContainer.transform.TransformPoint(_spline[0].Position);
+                Vector3 worldB = splineContainer.transform.TransformPoint(_spline[1].Position);
+                midpoint.position = (worldA + worldB) * 0.5f + Vector3.up;
             }
         }
     }

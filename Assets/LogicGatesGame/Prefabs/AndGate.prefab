@@ -735,6 +735,8 @@ MonoBehaviour:
   updatePositionAlways: 1
   positionMode: 0
   lookDirectionOffset: 0.05
+  triggerLayers:
+    m_Bits: 1
 --- !u!1001 &1994415951941179020
 PrefabInstance:
   m_ObjectHideFlags: 0
