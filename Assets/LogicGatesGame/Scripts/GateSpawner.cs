@@ -84,6 +84,11 @@ namespace LogicGatesGame.Scripts
             SpawnGate(animate: true);
         }
 
+        private void OnDestroy()
+        {
+            _isQuitting = true;
+        }
+
         private void OnApplicationQuit()
         {
             _isQuitting = true;

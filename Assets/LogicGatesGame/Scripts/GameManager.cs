@@ -1,30 +1,39 @@
 using System;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace LogicGatesGame.Scripts
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : SceneSingleton<GameManager>
     {
+        [SerializeField] private GoalChecker goalChecker;
+
         public event Action<int> OnSecondTick;
 
         public float ElapsedTime { get; private set; }
         public int ElapsedSeconds { get; private set; }
 
-        private bool _timerRunning;
         private int _lastSecond;
+        private bool _timerRunning;
 
-        public void StartTimer()
+        private void OnEnable()
+        {
+            if (goalChecker != null)
+                goalChecker.OnGoalAchieved += OnGoalAchieved;
+        }
+
+        private void OnDisable()
+        {
+            if (goalChecker != null)
+                goalChecker.OnGoalAchieved -= OnGoalAchieved;
+        }
+
+        private void Start()
         {
             ElapsedTime = 0f;
             ElapsedSeconds = 0;
             _lastSecond = 0;
             _timerRunning = true;
         }
-
-        public void StopTimer() => _timerRunning = false;
 
         private void Update()
         {
@@ -40,13 +49,6 @@ namespace LogicGatesGame.Scripts
             }
         }
 
-        public void QuitGame()
-        {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
+        private void OnGoalAchieved() => _timerRunning = false;
     }
 }

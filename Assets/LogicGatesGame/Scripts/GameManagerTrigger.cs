@@ -4,6 +4,6 @@ namespace LogicGatesGame.Scripts
 {
     public class GameManagerTrigger : MonoBehaviour
     {
-        public void QuitGame() => GameManager.Instance.QuitGame();
+        public void QuitGame() => ApplicationManager.Instance.QuitGame();
     }
 }
