@@ -20,8 +20,20 @@ namespace LogicGatesGame.Scripts
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            return base.CanHover(interactable) 
+            return base.CanHover(interactable)
                    && (interactablesHovered.Count == 0 || interactable == interactablesHovered[0]);
+        }
+
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
+            TelemetryManager.Instance?.Increment(CircuitTelemetryManager.KeyGates);
+        }
+
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+            TelemetryManager.Instance?.Decrement(CircuitTelemetryManager.KeyGates);
         }
     }
 }

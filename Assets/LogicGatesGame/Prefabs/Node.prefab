@@ -245,6 +245,9 @@ MonoBehaviour:
   spawnAnimationDuration: 0.1
   updatePositionAlways: 0
   positionMode: 0
+  lookDirectionOffset: 0
+  triggerLayers:
+    m_Bits: 4294967295
 --- !u!1 &6946012409779019548
 GameObject:
   m_ObjectHideFlags: 0

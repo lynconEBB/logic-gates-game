@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
     public class GameManager : SceneSingleton<GameManager>
     {
         [SerializeField] private GoalChecker goalChecker;
+        [SerializeField] private XRInteractionManager interactionManager;
 
         public event Action<int> OnSecondTick;
+        public event Action OnGameFinished;
 
         public float ElapsedTime { get; private set; }
         public int ElapsedSeconds { get; private set; }
@@ -49,6 +54,31 @@ namespace LogicGatesGame.Scripts
             }
         }
 
-        private void OnGoalAchieved() => _timerRunning = false;
+        private void OnGoalAchieved()
+        {
+            _timerRunning = false;
+            DisablePlayerInteraction();
+            OnGameFinished?.Invoke();
+        }
+
+        private void DisablePlayerInteraction()
+        {
+            if (interactionManager == null) return;
+
+            var interactors = new List<IXRInteractor>();
+            interactionManager.GetRegisteredInteractors(interactors);
+
+            int defaultMask = InteractionLayerMask.GetMask("Default");
+            foreach (var interactor in interactors)
+            {
+                if (interactor is not (NearFarInteractor or XRPokeInteractor)) continue;
+                if (interactor is not XRBaseInteractor baseInteractor) continue;
+
+                baseInteractor.interactionLayers = new InteractionLayerMask
+                {
+                    value = baseInteractor.interactionLayers.value & ~defaultMask
+                };
+            }
+        }
     }
 }

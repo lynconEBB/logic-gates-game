@@ -457,7 +457,6 @@ MonoBehaviour:
   pointA: {fileID: 7490858000221211604}
   pointB: {fileID: 5016785667644088355}
   midpoint: {fileID: 6315596629484254243}
-  midpointHeightOffset: 0
 --- !u!114 &5189734680366494813
 MonoBehaviour:
   m_ObjectHideFlags: 0

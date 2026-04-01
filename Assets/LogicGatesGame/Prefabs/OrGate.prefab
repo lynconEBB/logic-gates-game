@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5868574291149796391, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 4912262557756038520}
     - target: {fileID: 5918815338008715123, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.02443621
@@ -84,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -684158348836279346, guid: bd1822ba4de8cb44588db25e15336f68, type: 3}
+    - target: {fileID: 6507709408057630198, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: interactable
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7218150094633031289, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_Name
       value: OrGate
@@ -207,6 +215,8 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   m_AttachTransform: {fileID: 3530950520545783031}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0

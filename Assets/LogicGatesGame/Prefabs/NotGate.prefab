@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.083
       objectReference: {fileID: 0}
+    - target: {fileID: 5868574291149796391, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 5485707963628078870}
     - target: {fileID: 5918815338008715123, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.021820491
@@ -116,6 +120,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -5309051280521382464, guid: 7271d8ff540f35a41b3d56f4178d56bb, type: 3}
+    - target: {fileID: 6507709408057630198, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: interactable
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6980957941422498837, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 5
@@ -239,6 +247,8 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0

@@ -73,7 +73,7 @@ namespace LogicGatesGame.Scripts
 
         private void OnTrackedGateDestroyed(XRGrabInteractable gate)
         {
-            if (_isQuitting) return;
+            if (_isQuitting || this == null) return;
 
             _spawnedGates.Remove(gate);
             if (gate == _pendingGate)
