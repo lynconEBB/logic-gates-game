@@ -107,7 +107,7 @@ namespace LogicGatesGame.Scripts
             OnCircuitChanged?.Invoke();
         }
 
-        public bool ConnectNodes(int inputNodeId, int outputNodeId)
+        public bool ConnectNodes(int inputNodeId, int outputNodeId, bool automatic = false)
         {
             if (!CanConnectNodes(inputNodeId, outputNodeId))
                 return false;
@@ -115,15 +115,16 @@ namespace LogicGatesGame.Scripts
             _nodes[inputNodeId].TryAddInput(_nodes[outputNodeId]);
             _nodes[outputNodeId].TryAddOutput(_nodes[inputNodeId]);
             EvaluateTree(_nodes[inputNodeId]);
+            if (!automatic)
+                TelemetryManager.Instance?.Increment(CircuitTelemetryManager.KeyConnections);
             OnCircuitChanged?.Invoke();
             return true;
         }
-        
+
         public bool DisconnectNodes(int inputNode, int outputNode)
         {
             if (!AreNodesConnected(inputNode, outputNode))
                 return false;
-            
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
             EvaluateTree(_nodes[inputNode]);

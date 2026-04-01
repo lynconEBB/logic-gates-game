@@ -15,7 +15,7 @@ namespace LogicGatesGame.Scripts
 
         [SerializeField]
         private StateVisualizer stateVisualizer;
-        
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -56,6 +56,7 @@ namespace LogicGatesGame.Scripts
                 {
                     stateVisualizer.SetNodeObserved(wireConn.CurrentNode);
                 }
+
             }
         }
 

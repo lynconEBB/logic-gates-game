@@ -40,9 +40,9 @@ namespace LogicGatesGame.Scripts
                 _gateNodeId = _circuitController.AddNode(GateNodeClass);
 
             foreach (var input in InputNodes)
-                _circuitController.ConnectNodes(_gateNodeId.Value, input.NodeId);
+                _circuitController.ConnectNodes(_gateNodeId.Value, input.NodeId, automatic: true);
 
-            _circuitController.ConnectNodes(OutputNode.NodeId, _gateNodeId.Value);
+            _circuitController.ConnectNodes(OutputNode.NodeId, _gateNodeId.Value, automatic: true);
 
             SetNodeInteractablesEnabled(true);
         }

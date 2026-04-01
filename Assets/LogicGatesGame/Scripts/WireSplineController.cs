@@ -76,7 +76,7 @@ namespace LogicGatesGame.Scripts
             {
                 Vector3 worldA = splineContainer.transform.TransformPoint(_spline[0].Position);
                 Vector3 worldB = splineContainer.transform.TransformPoint(_spline[1].Position);
-                midpoint.position = (worldA + worldB) * 0.5f + Vector3.up;
+                midpoint.position = (worldA + worldB) * 0.5f;
             }
         }
     }
