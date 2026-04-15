@@ -1,0 +1,16 @@
+{
+    "name": "LogicGatesGame.Telemetry",
+    "rootNamespace": "LogicGatesGame.Scripts",
+    "references": [
+        "LogicGatesGame.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

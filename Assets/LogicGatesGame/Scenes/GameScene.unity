@@ -10814,6 +10814,7 @@ GameObject:
   - component: {fileID: 1503803980}
   - component: {fileID: 1503803981}
   - component: {fileID: 1503803982}
+  - component: {fileID: 1503803983}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10878,6 +10879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.GameManager
   goalChecker: {fileID: 1503803980}
+  gameDirector: {fileID: 1503803978}
   interactionManager: {fileID: 756192407}
 --- !u!114 &1503803982
 MonoBehaviour:
@@ -10891,6 +10893,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2393da2e249d39e458fabf7340cc177b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.CircuitTelemetryManager
+--- !u!114 &1503803983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503803977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bb766b3ac12ed4b83c30af1449ef5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LogicGatesGame.Telemetry::LogicGatesGame.Scripts.TelemetryFirestoreSync
+  collectionName: telemetrySessions
+  syncOnStart: 1
+  syncOnResume: 1
 --- !u!1001 &1520329018
 PrefabInstance:
   m_ObjectHideFlags: 0

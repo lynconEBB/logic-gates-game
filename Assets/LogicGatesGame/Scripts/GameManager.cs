@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -9,6 +10,7 @@ namespace LogicGatesGame.Scripts
     public class GameManager : SceneSingleton<GameManager>
     {
         [SerializeField] private GoalChecker goalChecker;
+        [SerializeField] private GameDirector gameDirector;
         [SerializeField] private XRInteractionManager interactionManager;
 
         public event Action<int> OnSecondTick;
@@ -19,6 +21,7 @@ namespace LogicGatesGame.Scripts
 
         private int _lastSecond;
         private bool _timerRunning;
+        private bool _telemetrySaved;
 
         private void OnEnable()
         {
@@ -38,6 +41,7 @@ namespace LogicGatesGame.Scripts
             ElapsedSeconds = 0;
             _lastSecond = 0;
             _timerRunning = true;
+            _telemetrySaved = false;
         }
 
         private void Update()
@@ -58,7 +62,31 @@ namespace LogicGatesGame.Scripts
         {
             _timerRunning = false;
             DisablePlayerInteraction();
+            SaveTelemetrySnapshot();
             OnGameFinished?.Invoke();
+        }
+
+        private void SaveTelemetrySnapshot()
+        {
+            if (_telemetrySaved)
+                return;
+
+            var telemetry = TelemetryManager.Instance;
+            if (telemetry == null)
+            {
+                Debug.LogWarning("[GameManager] TelemetryManager instance was not available when saving telemetry.");
+                return;
+            }
+
+            var record = TelemetrySessionRecord.Create(
+                ElapsedSeconds,
+                SceneManager.GetActiveScene().name,
+                gameDirector != null ? gameDirector.SelectedExpression : string.Empty,
+                telemetry.GetAll());
+
+            TelemetryLocalStore.SaveCompletedSession(record);
+            _telemetrySaved = true;
+            TelemetryFirestoreSync.Instance?.TrySyncPendingSessions();
         }
 
         private void DisablePlayerInteraction()

@@ -12,6 +12,18 @@
 /[Uu]ser[Ss]ettings/
 *.log
 .idea
+Assets/google-services.json
+Assets/google-services.json.meta
+Assets/StreamingAssets/google-services-desktop.json
+Assets/StreamingAssets/google-services-desktop.json.meta
+Assets/Firebase/
+Assets/Firebase.meta
+Assets/ExternalDependencyManager/
+Assets/ExternalDependencyManager.meta
+Assets/Plugins/iOS/Firebase/
+Assets/Plugins/iOS/Firebase.meta
+Assets/Plugins/tvOS/Firebase/
+Assets/Plugins/tvOS/Firebase.meta
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
