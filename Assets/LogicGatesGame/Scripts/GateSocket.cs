@@ -14,15 +14,20 @@ namespace LogicGatesGame.Scripts
         protected override void Awake()
         {
             base.Awake();
-            
             _circuitController = GetComponentInParent<CircuitController>();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             return base.CanHover(interactable)
-                   && (interactablesHovered.Count == 0 || interactable == interactablesHovered[0]);
+                   && (interactablesHovered.Count == 0 || IsHovering(interactable));
         }
+
+        public override bool CanSelect(IXRSelectInteractable interactable)
+        {
+            return base.CanSelect(interactable) && IsHovering(interactable);
+        }
+
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
@@ -33,6 +38,7 @@ namespace LogicGatesGame.Scripts
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+            Debug.Log("Gate socket selected exited");
             TelemetryManager.Instance?.Decrement(CircuitTelemetryManager.KeyGates);
         }
     }

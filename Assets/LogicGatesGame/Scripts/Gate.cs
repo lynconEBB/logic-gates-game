@@ -25,7 +25,37 @@ namespace LogicGatesGame.Scripts
 
             if (args.interactorObject is not GateSocket socket) return;
 
-            _circuitController = socket.CircuitController;
+            if (!_gateNodeId.HasValue && socket.CircuitController != null)
+                InitializeControllerNodes(socket.CircuitController);
+
+            if (!_gateNodeId.HasValue)
+                return;
+
+            SetNodeInteractablesEnabled(true);
+        }
+
+
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            var rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+            base.OnSelectExited(args);
+
+            if (_circuitController == null || args.interactorObject is not GateSocket) return;
+
+            SetNodeInteractablesEnabled(false);
+
+            foreach (var input in InputNodes)
+                foreach (var socket in input.GetComponentsInChildren<ConnectionSocket>())
+                    socket.DisconnectAll();
+
+            foreach (var socket in OutputNode.GetComponentsInChildren<ConnectionSocket>())
+                socket.DisconnectAll();
+        }
+
+        private void InitializeControllerNodes(CircuitController circuitController)
+        {
+            _circuitController = circuitController;
 
             foreach (var input in InputNodes)
             {
@@ -36,66 +66,49 @@ namespace LogicGatesGame.Scripts
             OutputNode.AssignController(_circuitController, NodeClass.Simple);
             OutputNode.GetComponentInChildren<StateVisualizer>().SetNodeObserved(OutputNode.Node);
 
-            if (!_gateNodeId.HasValue)
-                _gateNodeId = _circuitController.AddNode(GateNodeClass);
+            _gateNodeId = _circuitController.AddNode(GateNodeClass);
 
             foreach (var input in InputNodes)
                 _circuitController.ConnectNodes(_gateNodeId.Value, input.NodeId, automatic: true);
 
             _circuitController.ConnectNodes(OutputNode.NodeId, _gateNodeId.Value, automatic: true);
-
-            SetNodeInteractablesEnabled(true);
-        }
-
-
-        protected override void OnSelectExited(SelectExitEventArgs args)
-        {
-            var rb = GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            
-            base.OnSelectExited(args);
-
-            if (_circuitController == null) return;
-
-            SetNodeInteractablesEnabled(false);
-
-            foreach (var input in InputNodes)
-                foreach (var socket in input.GetComponentsInChildren<ConnectionSocket>())
-                    socket.DisconnectAll();
-
-            foreach (var socket in OutputNode.GetComponentsInChildren<ConnectionSocket>())
-                socket.DisconnectAll();
-
-            foreach (var input in InputNodes)
-                _circuitController.DisconnectNodes(_gateNodeId.Value, input.NodeId);
-
-            _circuitController.DisconnectNodes(OutputNode.NodeId, _gateNodeId.Value);
-
-            _circuitController = null;
         }
 
         private void SetNodeInteractablesEnabled(bool enabled)
         {
             foreach (var input in InputNodes)
             {
-                foreach (var socket in input.GetComponentsInChildren<ConnectionSocket>())
-                    socket.enabled = enabled;
-                foreach (var initializer in input.GetComponentsInChildren<ConnectionInitializer>())
-                    initializer.enabled = enabled;
+                SetNodeInteractableEnable(input, enabled);
             }
+            SetNodeInteractableEnable(OutputNode, enabled);
+        }
 
-            foreach (var socket in OutputNode.GetComponentsInChildren<ConnectionSocket>())
-                socket.enabled = enabled;
-            foreach (var initializer in OutputNode.GetComponentsInChildren<ConnectionInitializer>())
-                initializer.enabled = enabled;
+        private void SetNodeInteractableEnable(NodeComponent node, bool isEnabled)
+        {
+            foreach (var socket in node.GetComponentsInChildren<ConnectionSocket>())
+                socket.enabled = isEnabled;
+            foreach (var initializer in node.GetComponentsInChildren<ConnectionInitializer>())
+                initializer.enabled = isEnabled;
         }
         
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            if (_circuitController != null && _gateNodeId.HasValue)
-                _circuitController.RemoveNode(_gateNodeId.Value);
+            if (_circuitController == null || !_gateNodeId.HasValue)
+                return;
+
+            foreach (var input in InputNodes)
+                RemoveControllerNode(input.NodeId);
+
+            RemoveControllerNode(OutputNode.NodeId);
+            RemoveControllerNode(_gateNodeId.Value);
+        }
+
+        private void RemoveControllerNode(int nodeId)
+        {
+            if (_circuitController.Nodes.ContainsKey(nodeId))
+                _circuitController.RemoveNode(nodeId);
         }
     }
 }

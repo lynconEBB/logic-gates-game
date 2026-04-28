@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
@@ -28,6 +29,15 @@ namespace LogicGatesGame.Scripts
             set;
         }
 
+        public override bool IsHoverableBy(IXRHoverInteractor interactor)
+        {
+            if (interactor is ConnectionSocket socket)
+            {
+                interactorsHovering.Find(s => s is ConnectionSocket);
+            }
+            return base.IsHoverableBy(interactor);
+        }
+
         public Node GetOtherNode()
         {
             return otherConnection.CurrentNode;
@@ -37,7 +47,7 @@ namespace LogicGatesGame.Scripts
         {
             base.OnSelectEntered(args);
 
-            if (args.interactorObject is ConnectionSocket socket)
+            if (args.interactorObject is ConnectionSocket)
             {
                 foreach (var coll in colliders)
                 {

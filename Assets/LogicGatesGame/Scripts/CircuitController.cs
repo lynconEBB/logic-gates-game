@@ -7,8 +7,10 @@ namespace LogicGatesGame.Scripts
 {
     public class CircuitController : MonoBehaviour
     {
-        private int _lastId = 0;
+        private int _lastId;
         private Dictionary<int, Node> _nodes = new();
+
+        public IReadOnlyDictionary<int, Node> Nodes => _nodes;
 
         public event Action OnCircuitChanged;
 
@@ -123,8 +125,12 @@ namespace LogicGatesGame.Scripts
 
         public bool DisconnectNodes(int inputNode, int outputNode)
         {
+            if (!_nodes.ContainsKey(inputNode) || !_nodes.ContainsKey(outputNode))
+                return false;
+
             if (!AreNodesConnected(inputNode, outputNode))
                 return false;
+
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
             EvaluateTree(_nodes[inputNode]);
