@@ -1084,6 +1084,9 @@ MonoBehaviour:
     sourceNode: {fileID: 6423054283904035527}
   - variableName: B
     sourceNode: {fileID: 5438694198474763796}
+  idealGates: 2
+  idealConnections: 4
+  idealTime: 20
 --- !u!1001 &729349858607022272
 PrefabInstance:
   m_ObjectHideFlags: 0

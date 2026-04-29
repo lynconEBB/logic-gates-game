@@ -32,14 +32,14 @@ namespace LogicGatesGame.Scripts
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            TelemetryManager.Instance?.Increment(CircuitTelemetryManager.KeyGates);
+            TelemetryManager.Instance?.Increment(TelemetryManager.KeyGates);
         }
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
             Debug.Log("Gate socket selected exited");
-            TelemetryManager.Instance?.Decrement(CircuitTelemetryManager.KeyGates);
+            TelemetryManager.Instance?.Decrement(TelemetryManager.KeyGates);
         }
     }
 }

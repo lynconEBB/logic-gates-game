@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -82,8 +83,28 @@ namespace LogicGatesGame.Scripts
 
             if (args.interactorObject is not ConnectionSocket)
             {
+                DetectFailedConnection();
                 _lateDestroyRoutine = StartCoroutine(LateDestroyRoutine());
             }
+        }
+
+        private void DetectFailedConnection()
+        {
+            ConnectionSocket[] connectionSockets = interactorsHovering.OfType<ConnectionSocket>().ToArray();
+            if (connectionSockets.Length == 0)
+            {
+                TelemetryManager.Instance?.Increment(TelemetryManager.KeyConnectionCanceled);
+                return;
+            }
+            
+            foreach (var socket in connectionSockets)
+            {
+                if (socket.NodeComponent.CanConnect(GetOtherNode()?.Id))
+                    return;
+            }
+            
+            Debug.LogWarning("Connection failed");
+            TelemetryManager.Instance?.Increment(TelemetryManager.KeyConnectionFailed);
         }
 
         private IEnumerator LateDestroyRoutine()

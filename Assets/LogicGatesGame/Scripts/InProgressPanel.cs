@@ -8,6 +8,8 @@ namespace LogicGatesGame.Scripts
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private TMP_Text expressionText;
         [SerializeField] private GameDirector gameDirector;
+        [SerializeField] private GameManager gameManager;
+        
 
         private void Awake()
         {
@@ -46,15 +48,15 @@ namespace LogicGatesGame.Scripts
 
         private void OnDisable()
         {
-            if (GameManager.Instance != null)
-                GameManager.Instance.OnSecondTick -= UpdateTimeDisplay;
+            if (gameManager != null)
+                gameManager.OnSecondTick -= UpdateTimeDisplay;
         }
 
         private void Subscribe()
         {
-            if (GameManager.Instance == null) return;
-            GameManager.Instance.OnSecondTick += UpdateTimeDisplay;
-            UpdateTimeDisplay(GameManager.Instance.ElapsedSeconds);
+            if (gameManager == null) return;
+            gameManager.OnSecondTick += UpdateTimeDisplay;
+            UpdateTimeDisplay(gameManager.ElapsedSeconds);
         }
 
         private void UpdateTimeDisplay(int totalSeconds)

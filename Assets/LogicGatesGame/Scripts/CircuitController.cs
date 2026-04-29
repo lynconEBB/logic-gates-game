@@ -116,12 +116,12 @@ namespace LogicGatesGame.Scripts
         {
             if (!CanConnectNodes(inputNodeId, outputNodeId))
                 return false;
-
+            
             _nodes[inputNodeId].TryAddInput(_nodes[outputNodeId]);
             _nodes[outputNodeId].TryAddOutput(_nodes[inputNodeId]);
             EvaluateTree(_nodes[inputNodeId]);
             if (!automatic)
-                TelemetryManager.Instance?.Increment(CircuitTelemetryManager.KeyConnections);
+                TelemetryManager.Instance?.Increment(TelemetryManager.KeyConnectionSuccessful);
             OnCircuitChanged?.Invoke();
             return true;
         }
@@ -136,6 +136,8 @@ namespace LogicGatesGame.Scripts
 
             _nodes[inputNode].Inputs.Remove(_nodes[outputNode]);
             _nodes[outputNode].Outputs.Remove(_nodes[inputNode]);
+            
+            TelemetryManager.Instance?.Increment(TelemetryManager.KeyDisconnections);
             EvaluateTree(_nodes[inputNode]);
             OnCircuitChanged?.Invoke();
             return true;
@@ -152,45 +154,6 @@ namespace LogicGatesGame.Scripts
             return _nodes.ContainsKey(inputNodeId) && _nodes.ContainsKey(outputNodeId) &&
                    _nodes[inputNodeId].CanAddToInputSlot(_nodes[outputNodeId]) &&
                    _nodes[outputNodeId].CanAddToOutputSlot(_nodes[inputNodeId]);
-        }
-
-        public void PrintState()
-        {
-            foreach (var node in _nodes)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"Node {node.Key}");
-                if (node.Value.Inputs.Count > 0)
-                {
-                    sb.Append($"Inputs: ");
-                    foreach (var input in node.Value.Inputs)
-                    {
-                        sb.Append(input.Id);
-                        sb.Append(", ");
-                    }
-                    sb.Append("\n");
-                }
-                else
-                {
-                    sb.AppendLine("No inputs");
-                }
-                
-                if (node.Value.Outputs.Count > 0)
-                {
-                    sb.Append($"Ouputs: ");
-                    foreach (var output in node.Value.Outputs)
-                    {
-                        sb.Append(output.Id);
-                        sb.Append(", ");
-                    }
-                    sb.Append("\n");
-                }
-                else
-                {
-                    sb.AppendLine("No outputs");
-                }
-                Debug.Log(sb.ToString());
-            } 
         }
     }
 }

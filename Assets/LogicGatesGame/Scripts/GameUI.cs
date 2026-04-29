@@ -6,33 +6,44 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField] private InProgressPanel inProgressPanel;
         [SerializeField] private ResultsPanel resultsPanel;
-        [SerializeField] private GoalChecker goalChecker;
+        [SerializeField] private GameManager gameManager;
 
         private void OnEnable()
         {
-            if (goalChecker != null)
-                goalChecker.OnGoalAchieved += OnGoalAchieved;
+            if (gameManager != null)
+                gameManager.ResultReady += OnResultReady;
         }
 
         private void OnDisable()
         {
-            if (goalChecker != null)
-                goalChecker.OnGoalAchieved -= OnGoalAchieved;
+            if (gameManager != null)
+                gameManager.ResultReady -= OnResultReady;
         }
 
         private void Start()
         {
-            SetResultsVisible(goalChecker != null && goalChecker.IsGoalAchieved);
+            if (gameManager != null && gameManager.HasResult)
+                ShowResults(gameManager.LastScore);
+            else
+                ShowResults(null);
         }
 
-        private void OnGoalAchieved() => SetResultsVisible(true);
+        private void OnResultReady(float score) => ShowResults(score);
 
-        private void SetResultsVisible(bool show)
+        private void ShowResults(float? score)
         {
+            bool show = score.HasValue;
+
             if (inProgressPanel != null)
                 inProgressPanel.gameObject.SetActive(!show);
-            if (resultsPanel != null)
-                resultsPanel.gameObject.SetActive(show);
+
+            if (resultsPanel == null)
+                return;
+
+            if (show)
+                resultsPanel.Show(score.Value);
+            else
+                resultsPanel.gameObject.SetActive(false);
         }
     }
 }

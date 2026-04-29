@@ -1,39 +1,27 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
-    public class GameManager : SceneSingleton<GameManager>
+    public class GameManager : MonoBehaviour
     {
-        [SerializeField] private GoalChecker goalChecker;
-        [SerializeField] private GameDirector gameDirector;
         [SerializeField] private XRInteractionManager interactionManager;
 
         public event Action<int> OnSecondTick;
         public event Action OnGameFinished;
+        public event Action<float> ResultReady;
 
         public float ElapsedTime { get; private set; }
         public int ElapsedSeconds { get; private set; }
+        public bool IsGameFinished { get; private set; }
+        public bool HasResult { get; private set; }
+        public float LastScore { get; private set; }
 
         private int _lastSecond;
         private bool _timerRunning;
-        private bool _telemetrySaved;
-
-        private void OnEnable()
-        {
-            if (goalChecker != null)
-                goalChecker.OnGoalAchieved += OnGoalAchieved;
-        }
-
-        private void OnDisable()
-        {
-            if (goalChecker != null)
-                goalChecker.OnGoalAchieved -= OnGoalAchieved;
-        }
 
         private void Start()
         {
@@ -41,7 +29,6 @@ namespace LogicGatesGame.Scripts
             ElapsedSeconds = 0;
             _lastSecond = 0;
             _timerRunning = true;
-            _telemetrySaved = false;
         }
 
         private void Update()
@@ -58,35 +45,25 @@ namespace LogicGatesGame.Scripts
             }
         }
 
-        private void OnGoalAchieved()
+        public void NotifyGoalAchieved()
         {
+            if (IsGameFinished)
+                return;
+
+            IsGameFinished = true;
             _timerRunning = false;
             DisablePlayerInteraction();
-            SaveTelemetrySnapshot();
             OnGameFinished?.Invoke();
         }
 
-        private void SaveTelemetrySnapshot()
+        public void NotifyResultReady(float score)
         {
-            if (_telemetrySaved)
+            if (HasResult)
                 return;
 
-            var telemetry = TelemetryManager.Instance;
-            if (telemetry == null)
-            {
-                Debug.LogWarning("[GameManager] TelemetryManager instance was not available when saving telemetry.");
-                return;
-            }
-
-            var record = TelemetrySessionRecord.Create(
-                ElapsedSeconds,
-                SceneManager.GetActiveScene().name,
-                gameDirector != null ? gameDirector.SelectedExpression : string.Empty,
-                telemetry.GetAll());
-
-            TelemetryLocalStore.SaveCompletedSession(record);
-            _telemetrySaved = true;
-            TelemetryFirestoreSync.Instance?.TrySyncPendingSessions();
+            HasResult = true;
+            LastScore = score;
+            ResultReady?.Invoke(score);
         }
 
         private void DisablePlayerInteraction()

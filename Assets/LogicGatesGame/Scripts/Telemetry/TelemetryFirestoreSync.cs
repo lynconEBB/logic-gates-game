@@ -122,35 +122,22 @@ namespace LogicGatesGame.Scripts
             {
                 { "sessionId", session.sessionId },
                 { "createdAtUtc", session.createdAtUtc },
-                { "completedAtUtc", session.completedAtUtc },
-                { "elapsedSeconds", session.elapsedSeconds },
-                { "sceneName", session.sceneName },
+                { "time", session.time },
                 { "circuitExpression", session.circuitExpression },
                 { "appVersion", session.appVersion },
                 { "platform", session.platform },
                 { "deviceModel", session.deviceModel },
-                { "uploadedToFirestore", true },
-                { "counters", BuildCountersMap(session.counters) }
+                { "gates", session.gates },
+                { "disconnections", session.disconnections },
+                { "connectionCanceled", session.connectionCanceled },
+                { "connectionFailed", session.connectionFailed },
+                { "connectionSuccessful", session.connectionSuccessful },
+                { "connections", session.connections },
+                { "score", session.score },
+                { "uploadedToFirestore", true }
             };
 
             return _firestore.Collection(collectionName).Document(session.sessionId).SetAsync(documentData);
-        }
-
-        private static Dictionary<string, object> BuildCountersMap(List<TelemetryCounterEntry> counters)
-        {
-            var map = new Dictionary<string, object>();
-            if (counters == null)
-                return map;
-
-            foreach (TelemetryCounterEntry counter in counters)
-            {
-                if (counter == null || string.IsNullOrEmpty(counter.key))
-                    continue;
-
-                map[counter.key] = counter.value;
-            }
-
-            return map;
         }
 
         private static bool HasNetworkConnection()

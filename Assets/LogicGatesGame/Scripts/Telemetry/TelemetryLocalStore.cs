@@ -124,15 +124,15 @@ namespace LogicGatesGame.Scripts
 
         private static string GetFileName(TelemetrySessionRecord record)
         {
-            DateTime completedAtUtc = DateTime.UtcNow;
-            if (!string.IsNullOrWhiteSpace(record.completedAtUtc) &&
-                DateTime.TryParse(record.completedAtUtc, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime parsedCompletedAtUtc))
+            DateTime createdAtUtc = DateTime.UtcNow;
+            if (!string.IsNullOrWhiteSpace(record.createdAtUtc) &&
+                DateTime.TryParse(record.createdAtUtc, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateTime parsedCreatedAtUtc))
             {
-                completedAtUtc = parsedCompletedAtUtc.ToUniversalTime();
+                createdAtUtc = parsedCreatedAtUtc.ToUniversalTime();
             }
 
             string sessionId = string.IsNullOrWhiteSpace(record.sessionId) ? Guid.NewGuid().ToString("N") : record.sessionId;
-            return $"{completedAtUtc:yyyyMMddTHHmmssZ}_{sessionId}{FileExtension}";
+            return $"{createdAtUtc:yyyyMMddTHHmmssZ}_{sessionId}{FileExtension}";
         }
     }
 }

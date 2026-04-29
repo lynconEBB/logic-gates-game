@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +6,8 @@ namespace LogicGatesGame.Scripts
     public class GoalChecker : MonoBehaviour
     {
         [SerializeField] private GameDirector gameDirector;
+        [SerializeField] private GameManager gameManager;
 
-        public event Action OnGoalAchieved;
-        public event Action OnGoalLost;
         public bool IsGoalAchieved { get; private set; }
 
         private string             _expression;
@@ -82,16 +80,14 @@ namespace LogicGatesGame.Scripts
 
         private void OnCircuitChanged()
         {
-            bool achieved = CheckGoal();
-            if (achieved && !IsGoalAchieved)
+            if (IsGoalAchieved)
+                return;
+
+            if (CheckGoal())
             {
                 IsGoalAchieved = true;
-                OnGoalAchieved?.Invoke();
-            }
-            else if (!achieved && IsGoalAchieved)
-            {
-                IsGoalAchieved = false;
-                OnGoalLost?.Invoke();
+                if (gameManager != null)
+                    gameManager.NotifyGoalAchieved();
             }
         }
 

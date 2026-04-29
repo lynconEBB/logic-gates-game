@@ -297,6 +297,9 @@ MonoBehaviour:
     sourceNode: {fileID: 9015756120458892630}
   - variableName: B
     sourceNode: {fileID: 1970454849304252895}
+  idealGates: 2
+  idealConnections: 4
+  idealTime: 20
 --- !u!1 &2070492417063195217
 GameObject:
   m_ObjectHideFlags: 0

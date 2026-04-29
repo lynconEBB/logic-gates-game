@@ -19,6 +19,7 @@ namespace LogicGatesGame.Scripts
         private Color validColor = Color.green;
 
         private NodeComponent _nodeComponent;
+        public NodeComponent NodeComponent => _nodeComponent;
         private List<WireConnection> _socketedConnection = new();
         
         protected override void Awake()

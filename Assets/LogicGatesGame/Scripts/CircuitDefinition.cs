@@ -16,5 +16,9 @@ namespace LogicGatesGame.Scripts
         [SerializeField] public string               expression;
         [SerializeField] public NodeComponent        sinkNode;
         [SerializeField] public List<VariableEntry>  variableBindings;
+
+        [SerializeField] public int                  idealGates;
+        [SerializeField] public int                  idealConnections;
+        [SerializeField] public int                  idealTime;
     }
 }
