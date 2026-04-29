@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,17 +22,38 @@ namespace LogicGatesGame.Scripts
 
         [SerializeField] private GameManager gameManager;
         [SerializeField] private GameDirector gameDirector;
+        [SerializeField] private TelemetryPoseRecorder poseRecorder;
 
         private readonly Dictionary<string, int> _data = new Dictionary<string, int>();
         private bool _telemetrySaved;
+        private bool _telemetrySaveStarted;
+
+        public string SessionId { get; private set; }
+        public string CreatedAtUtc { get; private set; }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (Instance != this)
+                return;
+
+            EnsureSessionInitialized();
+        }
 
         private void Start()
         {
+            EnsureSessionInitialized();
             RegisterKey(KeyGates);
             RegisterKey(KeyDisconnections);
             RegisterKey(KeyConnectionCanceled);
             RegisterKey(KeyConnectionFailed);
             RegisterKey(KeyConnectionSuccessful);
+
+            if (poseRecorder == null)
+                poseRecorder = GetComponent<TelemetryPoseRecorder>();
+
+            if (poseRecorder == null)
+                poseRecorder = FindFirstObjectByType<TelemetryPoseRecorder>();
         }
 
         private void OnEnable()
@@ -84,12 +106,44 @@ namespace LogicGatesGame.Scripts
 
         public IReadOnlyDictionary<string, int> GetAll() => _data;
 
-        private void OnGameFinished()
+        public void EnsureSessionInitialized()
         {
-            if (_telemetrySaved)
+            if (string.IsNullOrWhiteSpace(SessionId))
+                SessionId = Guid.NewGuid().ToString("N");
+
+            if (string.IsNullOrWhiteSpace(CreatedAtUtc))
+                CreatedAtUtc = DateTime.UtcNow.ToString("o");
+        }
+
+        private async void OnGameFinished()
+        {
+            if (_telemetrySaveStarted || _telemetrySaved)
                 return;
 
+            _telemetrySaveStarted = true;
+            EnsureSessionInitialized();
+
+            float score = CalculateScore();
+            if (gameManager != null)
+                gameManager.NotifyResultReady(score);
+
+            TelemetryPoseCaptureResult poseCaptureResult = TelemetryPoseCaptureResult.Unavailable(string.Empty);
+            if (poseRecorder != null)
+            {
+                try
+                {
+                    poseCaptureResult = await poseRecorder.CompleteRecordingAsync();
+                }
+                catch (Exception exception)
+                {
+                    poseCaptureResult = TelemetryPoseCaptureResult.Unavailable(exception.Message);
+                    Debug.LogWarning($"[TelemetryManager] Failed to complete pose recording: {exception.Message}");
+                }
+            }
+
             var record = TelemetrySessionRecord.Create(
+                SessionId,
+                CreatedAtUtc,
                 gameManager != null ? gameManager.ElapsedSeconds : 0,
                 gameDirector != null ? gameDirector.SelectedExpression : string.Empty,
                 GetCount(KeyGates),
@@ -97,10 +151,8 @@ namespace LogicGatesGame.Scripts
                 GetCount(KeyConnectionCanceled),
                 GetCount(KeyConnectionFailed),
                 GetCount(KeyConnectionSuccessful),
-                CalculateScore());
-
-            if (gameManager != null)
-                gameManager.NotifyResultReady(record.score);
+                score,
+                poseCaptureResult);
             
             TelemetryLocalStore.SaveCompletedSession(record);
             _telemetrySaved = true;

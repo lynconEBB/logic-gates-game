@@ -713,7 +713,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10457,6 +10457,7 @@ GameObject:
   - component: {fileID: 1503803978}
   - component: {fileID: 1503803980}
   - component: {fileID: 1503803982}
+  - component: {fileID: 1503803983}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10536,6 +10537,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.TelemetryManager
   gameManager: {fileID: 1503803981}
   gameDirector: {fileID: 1503803978}
+  poseRecorder: {fileID: 1503803983}
+--- !u!114 &1503803983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503803977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099f7b7e11894c33b5d4293dd373665d, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.TelemetryPoseRecorder
+  gameManager: {fileID: 1503803981}
+  xrOrigin: {fileID: 0}
+  sampleIntervalSeconds: 0.1
+  flushSampleCount: 600
 --- !u!1001 &1520329018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16058,6 +16076,18 @@ PrefabInstance:
     - target: {fileID: 3438466392459685017, guid: 23a2ac9959476ad4bb4bb5a1603e2665, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330025344642414737, guid: 23a2ac9959476ad4bb4bb5a1603e2665, type: 3}
+      propertyPath: supabaseAnonKey
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZWR3bW1yZ2ZjeWVxbGpwdGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0ODMzODMsImV4cCI6MjA5MzA1OTM4M30.MdLSP5RuaJmVvpHtgsPa9j8dyIwdD-sRLx-7ZHQgeNk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330025344642414737, guid: 23a2ac9959476ad4bb4bb5a1603e2665, type: 3}
+      propertyPath: supabaseBucketName
+      value: sessions
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330025344642414737, guid: 23a2ac9959476ad4bb4bb5a1603e2665, type: 3}
+      propertyPath: supabaseProjectUrl
+      value: https://giedwmmrgfcyeqljptau.supabase.co
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

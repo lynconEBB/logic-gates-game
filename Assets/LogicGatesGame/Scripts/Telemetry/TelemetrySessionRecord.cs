@@ -22,7 +22,16 @@ namespace LogicGatesGame.Scripts
         public int connections;
         public float score;
 
+        public string poseCsvRelativePath;
+        public bool poseCsvAvailable;
+        public string poseCsvError;
+        public bool poseCsvUploaded;
+        public string poseCsvStoragePath;
+        public string poseCsvDownloadUrl;
+
         public static TelemetrySessionRecord Create(
+            string sessionId,
+            string createdAtUtc,
             int time,
             string circuitExpression,
             int gates,
@@ -30,12 +39,16 @@ namespace LogicGatesGame.Scripts
             int connectionCanceled,
             int connectionFailed,
             int connectionSuccessful,
-            float score)
+            float score,
+            TelemetryPoseCaptureResult poseCaptureResult)
         {
+            if (poseCaptureResult == null)
+                poseCaptureResult = TelemetryPoseCaptureResult.Unavailable(string.Empty);
+
             return new TelemetrySessionRecord
             {
-                sessionId = Guid.NewGuid().ToString("N"),
-                createdAtUtc = DateTime.UtcNow.ToString("o"),
+                sessionId = string.IsNullOrWhiteSpace(sessionId) ? Guid.NewGuid().ToString("N") : sessionId,
+                createdAtUtc = string.IsNullOrWhiteSpace(createdAtUtc) ? DateTime.UtcNow.ToString("o") : createdAtUtc,
                 time = time,
                 circuitExpression = circuitExpression ?? string.Empty,
                 appVersion = Application.version,
@@ -47,7 +60,41 @@ namespace LogicGatesGame.Scripts
                 connectionFailed = connectionFailed,
                 connectionSuccessful = connectionSuccessful,
                 connections = connectionCanceled + connectionFailed + connectionSuccessful,
-                score = score
+                score = score,
+                poseCsvRelativePath = poseCaptureResult.poseCsvRelativePath ?? string.Empty,
+                poseCsvAvailable = poseCaptureResult.poseCsvAvailable,
+                poseCsvError = poseCaptureResult.poseCsvError ?? string.Empty,
+                poseCsvUploaded = false,
+                poseCsvStoragePath = string.Empty,
+                poseCsvDownloadUrl = string.Empty
+            };
+        }
+    }
+
+    [Serializable]
+    public class TelemetryPoseCaptureResult
+    {
+        public string poseCsvRelativePath;
+        public bool poseCsvAvailable;
+        public string poseCsvError;
+
+        public static TelemetryPoseCaptureResult Available(string poseCsvRelativePath)
+        {
+            return new TelemetryPoseCaptureResult
+            {
+                poseCsvRelativePath = poseCsvRelativePath ?? string.Empty,
+                poseCsvAvailable = true,
+                poseCsvError = string.Empty
+            };
+        }
+
+        public static TelemetryPoseCaptureResult Unavailable(string error)
+        {
+            return new TelemetryPoseCaptureResult
+            {
+                poseCsvRelativePath = string.Empty,
+                poseCsvAvailable = false,
+                poseCsvError = error ?? string.Empty
             };
         }
     }
