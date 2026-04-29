@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -28,14 +30,26 @@ namespace LogicGatesGame.Scripts
             get;
             set;
         }
-
+        
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
             if (interactor is ConnectionSocket socket)
             {
-                interactorsHovering.Find(s => s is ConnectionSocket);
+                List<IXRHoverInteractor> socketsHovering = interactorsHovering.FindAll(i => i is ConnectionSocket);
+                return (!socket.hasHover && socketsHovering.Count == 0) ||
+                       (socket.IsHovering(this) && socket.interactablesHovered.Count == 1);
             }
+            
             return base.IsHoverableBy(interactor);
+        }
+
+        public override bool IsSelectableBy(IXRSelectInteractor interactor)
+        {
+            if (interactor is ConnectionSocket socket)
+            {
+                return !socket.hasHover || socket.IsHovering(this);
+            }
+            return base.IsSelectableBy(interactor);
         }
 
         public Node GetOtherNode()

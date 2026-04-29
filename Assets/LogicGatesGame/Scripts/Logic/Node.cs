@@ -9,6 +9,7 @@ namespace LogicGatesGame.Scripts
         Source,
         Sink,
         Simple,
+        GateInput,
         And,
         Or,
         Not
@@ -28,7 +29,13 @@ namespace LogicGatesGame.Scripts
         public List<Node> Inputs => inputs;
         public List<Node> Outputs => outputs;
 
+        private readonly HashSet<int> _connectionBlacklist = new();
+
         public event Action<bool?> OnEvaluated;
+
+        public void AddToBlacklist(int nodeId) => _connectionBlacklist.Add(nodeId);
+        public void RemoveFromBlacklist(int nodeId) => _connectionBlacklist.Remove(nodeId);
+        public bool IsBlacklisted(int nodeId) => _connectionBlacklist.Contains(nodeId);
 
         public Node(int id)
         {
@@ -55,11 +62,13 @@ namespace LogicGatesGame.Scripts
 
         public virtual bool CanAddToOutputSlot(Node node)
         {
+            if (node == null || node.Id == _id || IsBlacklisted(node.Id)) return false;
             return maxOutputs == null || outputs.Count < maxOutputs;
         }
 
         public virtual bool CanAddToInputSlot(Node node)
         {
+            if (node == null || node.Id == _id || IsBlacklisted(node.Id)) return false;
             return maxInputs == null || inputs.Count < maxInputs;
         }
 
@@ -124,6 +133,21 @@ namespace LogicGatesGame.Scripts
         }
     }
 
+    public class GateInputNode : Node
+    {
+        public GateInputNode(int id) : base(id) {}
+
+        public override int? maxInputs => 1;
+        public override int? maxOutputs => 1;
+
+        public override bool? ExecEvaluation()
+        {
+            if (inputs.Count == 0)
+                return null;
+            return inputs[0].ExecEvaluation();
+        }
+    }
+
     public class AndNode : Node
     {
         public AndNode(int id) : base(id)
@@ -140,6 +164,11 @@ namespace LogicGatesGame.Scripts
                 bool? nodeVal = node.ExecEvaluation();
                 if (!nodeVal.HasValue)
                     return null;
+            }
+            
+            foreach (Node node in inputs)
+            {
+                bool? nodeVal = node.ExecEvaluation();
                 if (nodeVal.Value == false)
                 {
                     return false;
@@ -159,11 +188,17 @@ namespace LogicGatesGame.Scripts
         {
             if (inputs.Count == 0)
                 return null;
+            
             foreach (Node node in inputs)
             {
                 bool? nodeVal = node.ExecEvaluation();
                 if (!nodeVal.HasValue)
                     return null;
+            }
+            
+            foreach (Node node in inputs)
+            {
+                bool? nodeVal = node.ExecEvaluation();
                 if (nodeVal.Value == true)
                 {
                     return true;

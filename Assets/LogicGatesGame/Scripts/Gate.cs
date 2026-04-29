@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -59,7 +60,7 @@ namespace LogicGatesGame.Scripts
 
             foreach (var input in InputNodes)
             {
-                input.AssignController(_circuitController, NodeClass.Simple);
+                input.AssignController(_circuitController, NodeClass.GateInput);
                 input.GetComponentInChildren<StateVisualizer>().SetNodeObserved(input.Node);
             }
 
@@ -72,6 +73,16 @@ namespace LogicGatesGame.Scripts
                 _circuitController.ConnectNodes(_gateNodeId.Value, input.NodeId, automatic: true);
 
             _circuitController.ConnectNodes(OutputNode.NodeId, _gateNodeId.Value, automatic: true);
+
+            var gateNodes = new List<Node>();
+            foreach (var input in InputNodes) gateNodes.Add(input.Node);
+            gateNodes.Add(OutputNode.Node);
+            gateNodes.Add(_circuitController.GetNode(_gateNodeId.Value));
+
+            foreach (var a in gateNodes)
+                foreach (var b in gateNodes)
+                    if (a != null && b != null && a != b)
+                        a.AddToBlacklist(b.Id);
         }
 
         private void SetNodeInteractablesEnabled(bool enabled)

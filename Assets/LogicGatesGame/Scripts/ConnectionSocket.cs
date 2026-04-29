@@ -2,13 +2,12 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace LogicGatesGame.Scripts
 {
     public class ConnectionSocket : XRProximityInteractor
     {
-        [SerializeField] 
-        private float debugRadius = 0.1f;
         [SerializeField]
         private MeshRenderer meshRenderer;
 
@@ -36,7 +35,7 @@ namespace LogicGatesGame.Scripts
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            return interactable is WireConnection && _nodeComponent.Node != null;
+            return _nodeComponent.Node != null && interactable is WireConnection;
         }
         
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -61,6 +60,7 @@ namespace LogicGatesGame.Scripts
         {
             return !interactable.isSelected 
                    && interactable is WireConnection wireConnection
+                   && wireConnection.NodeComponent == null
                    && _nodeComponent.CanConnect(wireConnection.GetOtherNode()?.Id);
 
         }

@@ -73,6 +73,9 @@ namespace LogicGatesGame.Scripts
                 case NodeClass.Simple:
                     node = new SimpleNode(_lastId);
                     break;
+                case NodeClass.GateInput:
+                    node = new GateInputNode(_lastId);
+                    break;
                 case NodeClass.And:
                     node = new AndNode(_lastId);
                     break;
