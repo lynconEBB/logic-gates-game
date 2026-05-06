@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.SceneLoader
   mainMenuScene:
-    asset: {fileID: 102900000, guid: 05ce50c5172b67940ae01268eda79211, type: 3}
-    guid: 05ce50c5172b67940ae01268eda79211
+    asset: {fileID: 102900000, guid: 6cb935ca2c8c74bd0a5d1d6189314f62, type: 3}
+    guid: 6cb935ca2c8c74bd0a5d1d6189314f62
   gameScene:
     asset: {fileID: 102900000, guid: ff2ff754c2c1dc74982217eb911f48c3, type: 3}
     guid: ff2ff754c2c1dc74982217eb911f48c3

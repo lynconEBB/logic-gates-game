@@ -38,7 +38,6 @@ namespace LogicGatesGame.Scripts
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-            Debug.Log("Gate socket selected exited");
             TelemetryManager.Instance?.Decrement(TelemetryManager.KeyGates);
         }
     }

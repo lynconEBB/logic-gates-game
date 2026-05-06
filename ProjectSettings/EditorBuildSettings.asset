@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/LogicGatesGame/Scenes/MainMenuScene.unity
+    guid: 6cb935ca2c8c74bd0a5d1d6189314f62
+  - enabled: 1
     path: Assets/LogicGatesGame/Scenes/GameScene.unity
     guid: ff2ff754c2c1dc74982217eb911f48c3
-  - enabled: 1
-    path: Assets/LogicGatesGame/Scenes/MainMenuScene.unity
-    guid: 05ce50c5172b67940ae01268eda79211
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

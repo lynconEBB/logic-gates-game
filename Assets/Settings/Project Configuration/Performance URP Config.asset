@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2edee5c58d82540a51f03df9d42094, type: 3}
   m_Name: Performance URP Config
   m_EditorClassIdentifier: 
-  k_AssetVersion: 12
-  k_AssetPreviousVersion: 12
+  k_AssetVersion: 13
+  k_AssetPreviousVersion: 13
   m_RendererType: 1
   m_RendererData: {fileID: 0}
   m_RendererDataList:
@@ -42,9 +42,9 @@ MonoBehaviour:
   m_SupportProbeVolumeScenarioBlending: 0
   m_ProbeVolumeSHBands: 1
   m_MainLightRenderingMode: 1
-  m_MainLightShadowsSupported: 1
+  m_MainLightShadowsSupported: 0
   m_MainLightShadowmapResolution: 1024
-  m_AdditionalLightsRenderingMode: 1
+  m_AdditionalLightsRenderingMode: 0
   m_AdditionalLightsPerObjectLimit: 1
   m_AdditionalLightShadowsSupported: 1
   m_AdditionalLightsShadowmapResolution: 8192
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_ReflectionProbeAtlas: 0
   m_ShadowDistance: 64.09
   m_ShadowCascadeCount: 2
-  m_Cascade2Split: 0.123412974
+  m_Cascade2Split: 0.102522835
   m_Cascade3Split: {x: 0.1, y: 0.3}
   m_Cascade4Split: {x: 0.067, y: 0.2, z: 0.467}
   m_CascadeBorder: 0.7901571
@@ -100,7 +100,7 @@ MonoBehaviour:
     obsoleteHasProbeVolumes:
       m_Keys: []
       m_Values: 
-  m_PrefilteringModeMainLightShadows: 3
+  m_PrefilteringModeMainLightShadows: 0
   m_PrefilteringModeAdditionalLight: 0
   m_PrefilteringModeAdditionalLightShadows: 2
   m_PrefilterXRKeywords: 0
@@ -128,9 +128,11 @@ MonoBehaviour:
   m_PrefilterSoftShadowsQualityHigh: 1
   m_PrefilterSoftShadows: 1
   m_PrefilterScreenCoord: 1
+  m_PrefilterScreenSpaceIrradiance: 1
   m_PrefilterNativeRenderPass: 1
   m_PrefilterUseLegacyLightmaps: 0
   m_PrefilterBicubicLightmapSampling: 1
+  m_PrefilterReflectionProbeRotation: 1
   m_PrefilterReflectionProbeBlending: 1
   m_PrefilterReflectionProbeBoxProjection: 1
   m_PrefilterReflectionProbeAtlas: 1
