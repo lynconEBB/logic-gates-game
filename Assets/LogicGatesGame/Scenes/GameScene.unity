@@ -3032,6 +3032,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0924bcaa9eb50df458a783ae0e2b59f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &441087509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 441087506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &445834859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9961,12 +9966,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0535a406326bb46839550701d14ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.GameDirector
-  circuits:
-  - {fileID: 7296345114269409389, guid: 7736045f25f83144ea01f313a733818b, type: 3}
+  easyCircuits:
   - {fileID: 8982827148094406014, guid: 874f205977ccadd4e99e3281d1a81ce8, type: 3}
-  - {fileID: 8266249402713855951, guid: 11e59a8e9f0d76840afd4b86a443abeb, type: 3}
-  - {fileID: 6853205740547032176, guid: 7c07b1d09893c35f7bfaa2155a9470de, type: 3}
+  mediumCircuits:
   - {fileID: 429083787770579568, guid: e47d12235396893469488441d048bb55, type: 3}
+  hardCircuits:
+  - {fileID: 7296345114269409389, guid: 7736045f25f83144ea01f313a733818b, type: 3}
 --- !u!4 &1503803979
 Transform:
   m_ObjectHideFlags: 0
@@ -10037,7 +10042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.TelemetryPoseRecorder
   gameManager: {fileID: 1503803981}
-  xrOrigin: {fileID: 0}
+  xrOrigin: {fileID: 441087509}
   sampleIntervalSeconds: 0.1
   flushSampleCount: 600
 --- !u!1001 &1520329018
