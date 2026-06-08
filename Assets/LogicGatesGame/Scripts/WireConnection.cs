@@ -34,6 +34,9 @@ namespace LogicGatesGame.Scripts
         
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
+            if (interactor is XRRayInteractor)
+                return false;
+            
             if (interactor is ConnectionSocket socket)
             {
                 List<IXRHoverInteractor> socketsHovering = interactorsHovering.FindAll(i => i is ConnectionSocket);

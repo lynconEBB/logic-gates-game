@@ -70,7 +70,6 @@ MonoBehaviour:
       m_Calls: []
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
-  debugRadius: 0.1
   meshRenderer: {fileID: 8737847884113359519}
   outline: {fileID: 3786357683337810585}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -241,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
   interactable: {fileID: 7107203007403792258}
   calloutPrefab: {fileID: 1473082980225912218, guid: f04ae3ed7285d234bb082c592953b0d1, type: 3}
+  desktopCalloutPrefab: {fileID: 1473082980225912218, guid: 9bda53f8246a0e04ea8715b73ad2ab22, type: 3}
   heightOffset: 0.1
   spawnAnimationDuration: 0.1
   updatePositionAlways: 0
@@ -387,6 +387,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3786357683337810585
 MonoBehaviour:

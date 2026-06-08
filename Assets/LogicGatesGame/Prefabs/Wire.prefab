@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
   interactable: {fileID: 5016785667644088355}
   calloutPrefab: {fileID: 4609460467608301973, guid: 74e31f105569d584b8e08142f75369ed, type: 3}
+  desktopCalloutPrefab: {fileID: 0}
   heightOffset: 0.1
   spawnAnimationDuration: 0.1
   updatePositionAlways: 1
@@ -408,6 +409,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6293374898956756732
 MonoBehaviour:
@@ -954,6 +956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
   interactable: {fileID: 7490858000221211604}
   calloutPrefab: {fileID: 4609460467608301973, guid: 74e31f105569d584b8e08142f75369ed, type: 3}
+  desktopCalloutPrefab: {fileID: 4609460467608301973, guid: 74e31f105569d584b8e08142f75369ed, type: 3}
   heightOffset: 0.1
   spawnAnimationDuration: 0.1
   updatePositionAlways: 1
@@ -1007,6 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.HoverCallout
   interactable: {fileID: 3047154533185969774}
   calloutPrefab: {fileID: 7569326651641529796, guid: 87064b5c5e62a904bbf14f21bb895ee8, type: 3}
+  desktopCalloutPrefab: {fileID: 7569326651641529796, guid: b7c139cf69b559a49844d97384487bce, type: 3}
   heightOffset: 0.1
   spawnAnimationDuration: 0.1
   updatePositionAlways: 1

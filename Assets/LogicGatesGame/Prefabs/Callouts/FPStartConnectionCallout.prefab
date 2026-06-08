@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4571368821202652740}
   - component: {fileID: 4767953286691809161}
   m_Layer: 5
-  m_Name: StartConnectionCallout
+  m_Name: FPStartConnectionCallout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,10 +155,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3768190340347050906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 4.4750004, y: -4.405}
-  m_SizeDelta: {x: 0, y: 4.8100004}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3.7999005, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5073002287555780084
 CanvasRenderer:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cc6586d187c88ba49815a13430977584, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd46fcbd0f850ed43b1eac991d1547d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
   m_AspectMode: 2
-  m_AspectRatio: 0.57708335
+  m_AspectRatio: 0.79
 --- !u!1 &2131608821698158048
 GameObject:
   m_ObjectHideFlags: 0

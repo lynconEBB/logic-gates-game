@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -10,8 +11,10 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField] 
         private XRBaseInteractable interactable;
-        [SerializeField] 
+        [SerializeField]
         private GameObject calloutPrefab;
+        [SerializeField]
+        private GameObject desktopCalloutPrefab;
         [SerializeField] 
         private float heightOffset = 0.3f;
         [SerializeField] 
@@ -28,6 +31,7 @@ namespace LogicGatesGame.Scripts
         private enum CalloutPositionMode { Interactable, InteractionPoint }
 
         private GameObject _calloutInstance;
+        private GameObject _activePrefab;
         private Camera _camera;
         private int _hoverCount;
         private Vector3 _calloutOriginalScale;
@@ -40,16 +44,18 @@ namespace LogicGatesGame.Scripts
             if (!interactable)
                 interactable = GetComponent<XRBaseInteractable>();
 
-            if (!interactable || !calloutPrefab)
+            _activePrefab = XRSettings.isDeviceActive ? calloutPrefab : (desktopCalloutPrefab != null ? desktopCalloutPrefab : calloutPrefab);
+
+            if (!interactable || !_activePrefab)
                 throw new System.Exception("HoverCallout requires an interactable and a callout prefab");
-            
+
             _camera = Camera.main;
-            _calloutOriginalScale = calloutPrefab.transform.localScale;
+            _calloutOriginalScale = _activePrefab.transform.localScale;
         }
 
         private void Start()
         {
-            _calloutInstance = Instantiate(calloutPrefab);
+            _calloutInstance = Instantiate(_activePrefab);
             _calloutInstance.transform.position = transform.position + Vector3.up * heightOffset;
             _calloutInstance.transform.localScale = Vector3.zero;
             _scaleTarget = Vector3.zero;

@@ -62,7 +62,7 @@ namespace LogicGatesGame.Scripts
         
         public override bool IsHoverableBy(IXRHoverInteractor interactor)
         {
-            return IsNearTarget(interactor) && _nodeComponent.Node != null;
+            return (IsNearTarget(interactor) || interactor is XRRayInteractor) && _nodeComponent.Node != null;
         }
     }
 }
