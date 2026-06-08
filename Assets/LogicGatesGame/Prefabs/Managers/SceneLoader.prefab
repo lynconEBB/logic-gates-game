@@ -50,3 +50,9 @@ MonoBehaviour:
   gameScene:
     asset: {fileID: 102900000, guid: ff2ff754c2c1dc74982217eb911f48c3, type: 3}
     guid: ff2ff754c2c1dc74982217eb911f48c3
+  firstPersonMainMenuScene:
+    asset: {fileID: 102900000, guid: a8062d7177140e672a25ee8b04c0ede9, type: 3}
+    guid: a8062d7177140e672a25ee8b04c0ede9
+  firstPersonGameScene:
+    asset: {fileID: 102900000, guid: 4649f783632a32047bd6db6ad1ad5b8b, type: 3}
+    guid: 4649f783632a32047bd6db6ad1ad5b8b
