@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: interactable
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6507709408057630198, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
+      propertyPath: desktopCalloutPrefab
+      value: 
+      objectReference: {fileID: 3993109296071362802, guid: 31e397eb9e6fc134586ea9a245e68340, type: 3}
     - target: {fileID: 6980957941422498837, guid: c8d0c492a57a74644a178bde05901eea, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 5
