@@ -2,6 +2,7 @@ using Eflatun.SceneReference;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
 namespace LogicGatesGame.Scripts
 {
@@ -22,7 +23,15 @@ namespace LogicGatesGame.Scripts
 
         private static SceneReference PickScene(SceneReference xrScene, SceneReference firstPersonScene)
         {
-            return XRSettings.isDeviceActive ? xrScene : firstPersonScene;
+            return IsXrActive() ? xrScene : firstPersonScene;
+        }
+
+        // A real HMD makes XRSettings.isDeviceActive true. The XR Interaction
+        // Toolkit simulator does not, so detect it separately to still pick the
+        // VR scene variant when simulating in the editor.
+        private static bool IsXrActive()
+        {
+            return XRSettings.isDeviceActive || FindFirstObjectByType<XRInteractionSimulator>() != null;
         }
     }
 }

@@ -98,10 +98,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Porta
+  m_text: "AND\n(*/\u2227)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 41b7a9e0c27da6c41838ac177190ad4e, type: 2}
-  m_sharedMaterial: {fileID: 8971982744948399592, guid: 41b7a9e0c27da6c41838ac177190ad4e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 05eb67ecb4936d744a08ddb845688bd3, type: 2}
+  m_sharedMaterial: {fileID: -962780166125190071, guid: 05eb67ecb4936d744a08ddb845688bd3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.4
-  m_fontSizeBase: 13.4
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -136,8 +136,9 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

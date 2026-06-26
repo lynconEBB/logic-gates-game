@@ -46,8 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: LogicGatesGame.Telemetry::LogicGatesGame.Scripts.TelemetryFirestoreSync
   collectionName: telemetrySessions
   poseCsvStorageFolder: telemetryPoseCsv
-  supabaseProjectUrl:
-  supabaseAnonKey:
+  supabaseConfig: {fileID: 11400000, guid: 913786d4885c7ba4d9a67b95c9a031db, type: 2}
   supabaseBucketName: telemetry-pose-csv
   syncOnStart: 1
   syncOnResume: 1

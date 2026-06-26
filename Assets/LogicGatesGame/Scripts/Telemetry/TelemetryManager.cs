@@ -144,6 +144,7 @@ namespace LogicGatesGame.Scripts
             var record = TelemetrySessionRecord.Create(
                 SessionId,
                 CreatedAtUtc,
+                PlayerSession.SelectedPlayerName,
                 gameManager != null ? gameManager.ElapsedSeconds : 0,
                 gameDirector != null ? gameDirector.SelectedExpression : string.Empty,
                 GetCount(KeyGates),

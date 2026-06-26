@@ -8,6 +8,7 @@ namespace LogicGatesGame.Scripts
     {
         public string sessionId;
         public string createdAtUtc;
+        public string playerName;
         public int time;
         public string circuitExpression;
         public string appVersion;
@@ -32,6 +33,7 @@ namespace LogicGatesGame.Scripts
         public static TelemetrySessionRecord Create(
             string sessionId,
             string createdAtUtc,
+            string playerName,
             int time,
             string circuitExpression,
             int gates,
@@ -49,6 +51,7 @@ namespace LogicGatesGame.Scripts
             {
                 sessionId = string.IsNullOrWhiteSpace(sessionId) ? Guid.NewGuid().ToString("N") : sessionId,
                 createdAtUtc = string.IsNullOrWhiteSpace(createdAtUtc) ? DateTime.UtcNow.ToString("o") : createdAtUtc,
+                playerName = playerName ?? string.Empty,
                 time = time,
                 circuitExpression = circuitExpression ?? string.Empty,
                 appVersion = Application.version,

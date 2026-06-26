@@ -15,8 +15,7 @@ namespace LogicGatesGame.Scripts
     {
         [SerializeField] private string collectionName = "telemetrySessions";
         [SerializeField] private string poseCsvStorageFolder = "telemetryPoseCsv";
-        [SerializeField] private string supabaseProjectUrl;
-        [SerializeField] private string supabaseAnonKey;
+        [SerializeField] private SupabaseConfig supabaseConfig;
         [SerializeField] private string supabaseBucketName = "telemetry-pose-csv";
         [SerializeField] private bool syncOnStart = true;
         [SerializeField] private bool syncOnResume = true;
@@ -160,6 +159,7 @@ namespace LogicGatesGame.Scripts
             {
                 { "sessionId", session.sessionId },
                 { "createdAtUtc", session.createdAtUtc },
+                { "playerName", session.playerName ?? string.Empty },
                 { "time", session.time },
                 { "circuitExpression", session.circuitExpression },
                 { "appVersion", session.appVersion },
@@ -207,17 +207,20 @@ namespace LogicGatesGame.Scripts
             if (!File.Exists(filePath))
                 throw new FileNotFoundException("Pose CSV file was not found before upload.", filePath);
 
-            if (string.IsNullOrWhiteSpace(supabaseProjectUrl))
+            if (supabaseConfig == null)
+                throw new InvalidOperationException("Supabase config is not assigned.");
+
+            if (string.IsNullOrWhiteSpace(supabaseConfig.ProjectUrl))
                 throw new InvalidOperationException("Supabase project URL is not configured.");
 
-            if (string.IsNullOrWhiteSpace(supabaseAnonKey))
+            if (string.IsNullOrWhiteSpace(supabaseConfig.AnonKey))
                 throw new InvalidOperationException("Supabase anon key is not configured.");
 
             if (string.IsNullOrWhiteSpace(supabaseBucketName))
                 throw new InvalidOperationException("Supabase bucket name is not configured.");
 
             byte[] csvBytes = File.ReadAllBytes(filePath);
-            string normalizedProjectUrl = supabaseProjectUrl.TrimEnd('/');
+            string normalizedProjectUrl = supabaseConfig.ProjectUrl.TrimEnd('/');
             string normalizedStoragePath = NormalizeStoragePath(storagePath);
             string uploadUrl = $"{normalizedProjectUrl}/storage/v1/object/{UnityWebRequest.EscapeURL(supabaseBucketName)}/{EscapeStoragePath(normalizedStoragePath)}";
             string publicUrl = $"{normalizedProjectUrl}/storage/v1/object/public/{UnityWebRequest.EscapeURL(supabaseBucketName)}/{EscapeStoragePath(normalizedStoragePath)}";
@@ -228,8 +231,8 @@ namespace LogicGatesGame.Scripts
                 downloadHandler = new DownloadHandlerBuffer()
             };
 
-            request.SetRequestHeader("apikey", supabaseAnonKey);
-            request.SetRequestHeader("Authorization", $"Bearer {supabaseAnonKey}");
+            request.SetRequestHeader("apikey", supabaseConfig.AnonKey);
+            request.SetRequestHeader("Authorization", $"Bearer {supabaseConfig.AnonKey}");
             request.SetRequestHeader("Content-Type", "text/csv");
             request.SetRequestHeader("x-upsert", "false");
 
