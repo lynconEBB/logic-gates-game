@@ -5138,7 +5138,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A express\xE3o \xE9:"
+  m_text: "Monte a seguinte express\xE3o l\xF3gica:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b4a520a3cb6275845be92633e03b828a, type: 2}
   m_sharedMaterial: {fileID: -8318083890254640348, guid: b4a520a3cb6275845be92633e03b828a, type: 2}
@@ -9925,7 +9925,6 @@ MonoBehaviour:
   easyCircuits:
   - {fileID: 272599310756349158, guid: d6dd1d3615a2e208a918c36934081617, type: 3}
   - {fileID: 7296345114269409389, guid: 7736045f25f83144ea01f313a733818b, type: 3}
-  - {fileID: 3287395472868510331, guid: 060d4eb193eb3cb3dbb3f98cb3344874, type: 3}
   - {fileID: 8982827148094406014, guid: 874f205977ccadd4e99e3281d1a81ce8, type: 3}
   mediumCircuits:
   - {fileID: 6853205740547032176, guid: 7c07b1d09893c35f7bfaa2155a9470de, type: 3}
@@ -13257,7 +13256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: LoadMainMenu
+      value: SaveTelemetryAndExitToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

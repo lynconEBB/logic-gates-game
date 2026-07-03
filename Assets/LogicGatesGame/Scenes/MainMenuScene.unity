@@ -5733,17 +5733,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7137739869134469029, guid: ca00e0a608aa9794e8545247c2802464, type: 3}
   m_PrefabInstance: {fileID: 819217387}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &819536163 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2801717501481100249, guid: d72ec752467d8c54d8f4d51fecc802fd, type: 3}
-  m_PrefabInstance: {fileID: 1413651679}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e768da35871c7fa4c9e2e2ee99007d86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LogicGatesGame.Scripts.ApplicationManager
 --- !u!1001 &829445475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7397,7 +7386,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -1.9750175, y: 0}
-  m_SizeDelta: {x: -3.950035, y: 50}
+  m_SizeDelta: {x: -3.950035, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087916239
 MonoBehaviour:
@@ -8691,7 +8680,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -1.9750175, y: 0}
-  m_SizeDelta: {x: -3.950035, y: 20}
+  m_SizeDelta: {x: -3.950035, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305564368
 MonoBehaviour:
@@ -11853,7 +11842,7 @@ PrefabInstance:
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 819536163}
+      objectReference: {fileID: 651940441}
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -11864,7 +11853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: LogicGatesGame.Scripts.ApplicationManager, LogicGatesGame.Core
+      value: LogicGatesGame.Scripts.GameManagerTrigger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5585583631189188578, guid: b903b3ecbb35146abba0b32b29ce299e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName

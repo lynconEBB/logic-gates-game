@@ -172,6 +172,7 @@ namespace LogicGatesGame.Scripts
                 { "connectionSuccessful", session.connectionSuccessful },
                 { "connections", session.connections },
                 { "score", session.score },
+                { "abandoned", session.abandoned },
                 { "poseCsvDownloadUrl", session.poseCsvDownloadUrl ?? string.Empty },
                 { "uploadedToFirestore", true }
             };

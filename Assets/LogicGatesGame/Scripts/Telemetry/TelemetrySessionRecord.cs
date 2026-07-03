@@ -22,6 +22,7 @@ namespace LogicGatesGame.Scripts
         public int connectionSuccessful;
         public int connections;
         public float score;
+        public bool abandoned;
 
         public string poseCsvRelativePath;
         public bool poseCsvAvailable;
@@ -42,6 +43,7 @@ namespace LogicGatesGame.Scripts
             int connectionFailed,
             int connectionSuccessful,
             float score,
+            bool abandoned,
             TelemetryPoseCaptureResult poseCaptureResult)
         {
             if (poseCaptureResult == null)
@@ -64,6 +66,7 @@ namespace LogicGatesGame.Scripts
                 connectionSuccessful = connectionSuccessful,
                 connections = connectionCanceled + connectionFailed + connectionSuccessful,
                 score = score,
+                abandoned = abandoned,
                 poseCsvRelativePath = poseCaptureResult.poseCsvRelativePath ?? string.Empty,
                 poseCsvAvailable = poseCaptureResult.poseCsvAvailable,
                 poseCsvError = poseCaptureResult.poseCsvError ?? string.Empty,

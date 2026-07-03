@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LogicGatesGame.Scripts
@@ -115,7 +116,16 @@ namespace LogicGatesGame.Scripts
                 CreatedAtUtc = DateTime.UtcNow.ToString("o");
         }
 
-        private async void OnGameFinished()
+        private async void OnGameFinished() => await SaveSessionAsync();
+
+        // Saves the completed session: computes the score and shows the result UI.
+        public Task SaveSessionAsync() => SaveSessionInternalAsync(abandoned: false, reportResult: true);
+
+        // Saves the session as abandoned (player exited before finishing): no score
+        // calculation and no result notification, and the record is flagged abandoned.
+        public Task SaveAbandonedSessionAsync() => SaveSessionInternalAsync(abandoned: true, reportResult: false);
+
+        private async Task SaveSessionInternalAsync(bool abandoned, bool reportResult)
         {
             if (_telemetrySaveStarted || _telemetrySaved)
                 return;
@@ -123,9 +133,13 @@ namespace LogicGatesGame.Scripts
             _telemetrySaveStarted = true;
             EnsureSessionInitialized();
 
-            float score = CalculateScore();
-            if (gameManager != null)
-                gameManager.NotifyResultReady(score);
+            float score = 0f;
+            if (reportResult)
+            {
+                score = CalculateScore();
+                if (gameManager != null)
+                    gameManager.NotifyResultReady(score);
+            }
 
             TelemetryPoseCaptureResult poseCaptureResult = TelemetryPoseCaptureResult.Unavailable(string.Empty);
             if (poseRecorder != null)
@@ -153,6 +167,7 @@ namespace LogicGatesGame.Scripts
                 GetCount(KeyConnectionFailed),
                 GetCount(KeyConnectionSuccessful),
                 score,
+                abandoned,
                 poseCaptureResult);
             
             TelemetryLocalStore.SaveCompletedSession(record);
